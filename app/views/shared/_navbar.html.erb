@@ -1,0 +1,91 @@
+<nav class="bg-slate-900 border-b border-slate-800">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+
+      <div class="flex items-center">
+        <%= link_to root_path, class: "flex-shrink-0" do %>
+          <span
+            class="
+              text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r
+              from-indigo-500 to-purple-500
+            "
+          >
+            MangaVerse
+          </span>
+        <% end %>
+
+        <div class="hidden md:block">
+          <div class="ml-10 flex items-baseline space-x-4">
+            <%= link_to "Discover",
+            root_path,
+            class:
+              "text-gray-300 hover:bg-slate-800 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200" %>
+
+            <% if user_signed_in? %>
+              <%= link_to "My Library",
+              "#",
+              class:
+                "text-gray-300 hover:bg-slate-800 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200" %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <div class="hidden md:block">
+        <div class="ml-4 flex items-center md:ml-6">
+          <% if user_signed_in? %>
+            <span class="text-slate-400 text-sm mr-4">
+              Hello,
+              <%= link_to current_user.username, edit_user_registration_path %>
+            </span>
+
+            <%= button_to "Sign out",
+            destroy_user_session_path,
+            method: :delete,
+            class:
+              "text-gray-300 hover:text-white text-sm font-medium bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded-md transition-all" %>
+          <% else %>
+            <div class="space-x-4">
+              <%= link_to "Log in",
+              new_user_session_path,
+              class: "text-gray-300 hover:text-white text-sm font-medium" %>
+              <%= link_to "Sign up",
+              new_user_registration_path,
+              class:
+                "bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="-mr-2 flex md:hidden">
+        <button
+          type="button"
+          class="
+            bg-slate-800 inline-flex items-center justify-center p-2 rounded-md
+            text-gray-400 hover:text-white hover:bg-slate-700 focus:outline-none
+          "
+          aria-controls="mobile-menu"
+          aria-expanded="false"
+        >
+          <span class="sr-only">Open main menu</span>
+          <svg
+            class="block h-6 w-6"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
