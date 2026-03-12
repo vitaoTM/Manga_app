@@ -13,7 +13,7 @@
     >
       <div class="px-4 py-5 sm:p-6">
 
-        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: "space-y-6" }) do |f| %>
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, multipart: true, class: "space-y-6" }) do |f| %>
 
           <% if resource.errors.any? %>
             <div
@@ -26,17 +26,6 @@
           <% end %>
 
           <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-
-            <div class="sm:col-span-3">
-              <%#= f.label :name, "Display Name", class: "block text-sm font-medium text-slate-300" %>
-              <div class="mt-1">
-                <%# <%= f.text_field :name, %>
-                <%# autocomplete: "name", %>
-                <%# class: %>
-                <%# "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-slate-600 rounded-md bg-slate-900 text-white" %>
-                %>
-              </div>
-            </div>
 
             <div class="sm:col-span-3">
               <%= f.label :username, "Username", class: "block text-sm font-medium text-slate-300" %>

@@ -1,0 +1,39 @@
+<div class="sm:col-span-3">
+  <%= f.label :avatar,
+          "Profile picture",
+          class: "block text-sm font-medium text-slate-300" %>
+  <% if resource.avatar.attached? %>
+    <div class="mb-3 flex items-center gap-4">
+      <%= image_tag resource.avatar.variant(resize_to_fill: [80, 80], format: :webp),
+      class: "w-20 h-20 rounded-full object-cover border border-slate-700" %>
+      <div class="text-sm text-slate-400">
+        <p>Current photo</p>
+        <%= button_to "Remove",
+        remove_avatar_path,
+        method: :delete,
+        class: "text-red-400 hover:text-red-300 text-xs mt-1 block",
+        form: {
+          data: {
+            turbo_confirm: "Remove your avatar?",
+          },
+        } %>
+      </div>
+    </div>
+  <% else %>
+    <div
+      class="
+        mb-3 w-20 rounded-full bg-slate-700 flex items-center justify-center text-2xl
+        font-bold text-slate-400
+      "
+    >
+      <%= resource.username&.first&.downcase %>
+    </div>
+
+  <% end %>
+  <%= f.file_field :avatar,
+               accept: "image/png, image/jpeg, image/webp, image/gif",
+               class:
+                 "block text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded file:boreder-0 file:text-sm file:font-semibold sile:bg-slate-700 file:text-slate-200 file:cursor-pointer hover:file:bg-slate-600" %>
+  <p class="mt-1 text-xs text-slate-500">
+    PNG, JPG, WebP, max 5MB.</p>
+</div>
