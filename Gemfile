@@ -68,3 +68,5 @@ group :test do
 end
 
 gem "devise", "~> 5.0"
+
+gem "ruby-lsp", "~> 0.26.8"
