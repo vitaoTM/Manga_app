@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_11_014510) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_11_190906) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -40,6 +40,22 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_11_014510) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "mangas", force: :cascade do |t|
+    t.string "author", null: false
+    t.datetime "created_at", null: false
+    t.text "description"
+    t.integer "genre", default: 0, null: false
+    t.decimal "rating", default: "0.0", null: false
+    t.integer "status", default: 0, null: false
+    t.string "title", null: false
+    t.datetime "updated_at", null: false
+    t.integer "views_count", default: 0, null: false
+    t.index ["genre"], name: "index_mangas_on_genre"
+    t.index ["status"], name: "index_mangas_on_status"
+    t.index ["title"], name: "index_mangas_on_title"
+    t.index ["views_count"], name: "index_mangas_on_views_count"
   end
 
   create_table "users", force: :cascade do |t|
