@@ -1,36 +1,41 @@
 class MangasController < ApplicationController
-  # before_action :set_manga, only: [ :show,  :update, :destroy ]
+  before_action :set_manga, only: [ :show, :edit, :update, :destroy ]
 
   def index
-    mangas = Manga.all
+    @mangas = Manga.order(created_at: :desc)
+    # change latter maybe for updated latter
   end
 
   def show
   end
 
+  def new
+    @manga = Manga.new
+  end
+
   def create
     @manga = Manga.new(manga_params)
     if @manga.save
-      redirec_to @manga, notice: "Manga created."
+      redirect_to @manga, notice: "Manga created."
     else
       render :new, status: :unprocessable_entity
     end
+  end
 
-    def edit
-    end
+  def edit
+  end
 
-    def update
-      if @manga.update(manga_params)
-        redirec_to @manga, notice: "Manga updated."
-      else
-        render :edit, status: :unprocessable_entity
-      end
+  def update
+    if @manga.update(manga_params)
+      redirect_to @manga, notice: "Manga updated."
+    else
+      render :edit, status: :unprocessable_entity
     end
+  end
 
-    def destroy
-      @manga.destroy
-      redirec_to mangas_path, notice: "Manga deleted."
-    end
+  def destroy
+    @manga.destroy
+    redirect_to mangas_path, notice: "Manga deleted."
   end
 
   private
