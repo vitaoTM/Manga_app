@@ -1,6 +1,8 @@
 class Manga < ApplicationRecord
   has_one_attached :cover_image
   has_many :chapters, dependent: :destroy
+  has_many :manga_tags, dependent: :destroy
+  has_many :tags, through: :manga_tags
 
   enum :status, {
     ongoing: 0,
