@@ -9,4 +9,19 @@ class User < ApplicationRecord
             format: { with: /\A[a-z0-9_]+\z/i, message: "can only contain letters, numbers and underscores" }
 
   has_one_attached :avatar
+
+  has_many :bookmarks, dependent: :destroy
+  has_many :bookmarked_mangas, through: :bookmarks, source: :manga
+  has_many :ratings, dependent: :destroy
+  def rated?(manga)
+    ratings.exists?(manga: manga)
+  end
+
+  def rating_for(manga)
+    ratings.find_by(manga: manga)
+  end
+
+  def bookmarked?(manga)
+    bookmarks.exists?(manga: manga)
+  end
 end

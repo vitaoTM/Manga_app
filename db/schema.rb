@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_17_172756) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_17_182512) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -40,6 +40,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_17_172756) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "bookmarks", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "manga_id", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["manga_id"], name: "index_bookmarks_on_manga_id"
+    t.index ["user_id", "manga_id"], name: "index_bookmarks_on_user_id_and_manga_id", unique: true
+    t.index ["user_id"], name: "index_bookmarks_on_user_id"
   end
 
   create_table "chapters", force: :cascade do |t|
@@ -91,6 +101,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_17_172756) do
     t.index ["chapter_id"], name: "index_pages_on_chapter_id"
   end
 
+  create_table "ratings", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "manga_id", null: false
+    t.integer "score", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["manga_id"], name: "index_ratings_on_manga_id"
+    t.index ["user_id", "manga_id"], name: "index_ratings_on_user_id_and_manga_id", unique: true
+    t.index ["user_id"], name: "index_ratings_on_user_id"
+  end
+
   create_table "tags", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "name", null: false
@@ -120,8 +141,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_17_172756) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "bookmarks", "mangas"
+  add_foreign_key "bookmarks", "users"
   add_foreign_key "chapters", "mangas"
   add_foreign_key "manga_tags", "mangas"
   add_foreign_key "manga_tags", "tags"
   add_foreign_key "pages", "chapters"
+  add_foreign_key "ratings", "mangas"
+  add_foreign_key "ratings", "users"
 end
