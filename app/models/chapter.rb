@@ -1,9 +1,9 @@
 class Chapter < ApplicationRecord
   belongs_to :manga
-  has_many :pages,  -> { order { :number } }, dependent: :destroy
+  has_many :pages,  -> { order(:number) }, dependent: :destroy
 
   validates :number, presence: true, numericality: { greater_than: 0 }, uniqueness: { scope: :manga_id }
-  scope :ordered, -> { order { :number } }
+  scope :ordered, -> { order(:number) }
   scope :published, -> { where.not(published_at: nil).where("published_at <= ?", Time.current) }
 
   def display_title
