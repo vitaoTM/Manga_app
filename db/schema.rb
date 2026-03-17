@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_16_191416) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_17_025511) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -72,6 +72,15 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_16_191416) do
     t.index ["views_count"], name: "index_mangas_on_views_count"
   end
 
+  create_table "pages", force: :cascade do |t|
+    t.bigint "chapter_id", null: false
+    t.datetime "created_at", null: false
+    t.integer "number", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chapter_id", "number"], name: "index_pages_on_chapter_id_and_number", unique: true
+    t.index ["chapter_id"], name: "index_pages_on_chapter_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.boolean "admin", default: false, null: false
     t.datetime "created_at", null: false
@@ -95,4 +104,5 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_16_191416) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "chapters", "mangas"
+  add_foreign_key "pages", "chapters"
 end
