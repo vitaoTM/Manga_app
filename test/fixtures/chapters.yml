@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  manga: one
+  number: 9.99
+  title: MyString
+  notes: MyText
+  views_count: 1
+  published_at: 2026-03-16 16:14:16
+
+two:
+  manga: two
+  number: 9.99
+  title: MyString
+  notes: MyText
+  views_count: 1
+  published_at: 2026-03-16 16:14:16
