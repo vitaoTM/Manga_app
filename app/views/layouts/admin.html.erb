@@ -1,4 +1,3 @@
-<%# app/views/layouts/admin.html.erb %>
 <!DOCTYPE html>
 <html>
   <head>
@@ -18,10 +17,10 @@
         bg-zinc-900 border-b border-zinc-800 px-6 py-3 flex items-center justify-between
       "
     >
-      <span class="font-bold text-red-500">ADMIN</span>
+      <span class="font-bold text-red-500"><%= link_to "ADMIN", admin_dashboard_path %></span>
+
       <div class="flex gap-4 text-sm">
-        <%= link_to "Manga", admin_mangas_path, class: "text-zinc-400 hover:text-white" %>
-        <%= link_to "Tags", admin_tags_path, class: "text-zinc-400 hover:text-white" %>
+        <%= link_to "Manga", mangas_path, class: "text-zinc-400 hover:text-white" %>
         <%= link_to "View Site", root_path, class: "text-zinc-400 hover:text-white" %>
         <%= link_to "Sign out",
         destroy_user_session_path,

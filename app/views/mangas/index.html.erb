@@ -46,9 +46,9 @@
               "
             >
               <% if manga.cover_image.attached? %>
-                <%= image_tag manga.cover_image.variant(resize_to_fill: [200, 300]),
+                <%= image_tag manga.cover_image.variant(resize_to_fill: [200, 300]).processed,
                 alt: manga.title,
-                loading: "lazy",
+                # loading: "lazy",
                 class: "w-full h-full object-cover" %>
               <% else %>
                 <div

@@ -1,6 +1,6 @@
 class MangasController < ApplicationController
   before_action :set_manga, only: [ :show, :edit, :update, :destroy ]
-  before_action :require_admin!, only: [ :edit, :update, :new, :create, :destroy ]
+  before_action :require_admin!, only: [ :new, :create, :edit, :update, :destroy ]
 
   def index
     @mangas = Manga.order(created_at: :desc)
