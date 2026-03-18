@@ -1,0 +1,29 @@
+<div class='max-w mx-auto px-4 py-8 text-slate-100 bg-slate-950 min-h-screen'>
+
+  <%= @manga.title %>
+  <div class='flex items-center justify-center mb-6'>
+    <% @chapters.each do |chapter| %>
+      <%= link_to @chapter %>
+      <%= chapter.title if chapter.title %>
+
+    <% end %>
+  </div>
+
+  <div class='flex justify-between mt-10 pt-6 border-t border-slate-800 text-sm'>
+    <% if @prev_chapter %>
+      <%= link_to manga_chapter_path(@manga, @prev_chapter),
+            class: 'text-slate-400 hover:text-white flex items-center gap-1' do %>
+        <span>←</span><span><%= @prev_chapter.display_title %></span>
+      <% end %>
+    <% else %>
+      <span></span>
+    <% end %>
+    <% if @next_chapter %>
+      <%= link_to manga_chapter_path(@manga, @next_chapter),
+            class: 'text-slate-400 hover:text-white flex items-center gap-1 ml-auto' do %>
+        <span><%= @next_chapter.display_title %></span><span>→</span>
+      <% end %>
+    <% end %>
+  </div>
+
+</div>

@@ -9,6 +9,7 @@
   </div>
 
   <h1 class='text-4xl font-bold mt-4'><%= @manga.title %></h1>
+  <%# link_to @manga.chapters %>
   <% if @manga.cover_image.attached? %>
     <p><%= image_tag @manga.cover_image.variant(resize_to_fill: [300, 400]),
       class: "cover_image" %></p>
