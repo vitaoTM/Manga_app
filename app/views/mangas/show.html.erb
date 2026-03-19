@@ -19,16 +19,18 @@
 
   <span class='inline-block mt-3 px-3 py-1 text-xs rounded bg-red-600 text-white'><%= @manga.status.humanize %></span>
   <p class='mt-6 text-zinc-300'><%= @manga.description %></p>
-  <div class='mt-8 flex gap-4'>
-    <%= link_to "Edit",
-    edit_manga_path(@manga),
-    class: "px-4 py-2 bg-slate-700 rounded text-sm" %>
-    <%= button_to "Delete",
-    manga_path(@manga),
-    method: :delete,
-    data: {
-      confirm: "Are you sure?",
-    },
-    class: "px-4 py-2 bg-red-700 rounded text-sm text-white" %>
-
-  </div>
+  <%# <div class='mt-8 flex gap-4'> %>
+  <%#   <%= link_to "Edit", %>
+  <%#   edit_manga_path(@manga), %>
+  <%#   class: "px-4 py-2 bg-slate-700 rounded text-sm" %>
+  %>
+  <%#   <%= button_to "Delete", %>
+  <%#   manga_path(@manga), %>
+  <%#   method: :delete, %>
+  <%#   data: { %>
+  <%#     confirm: "Are you sure?", %>
+  <%#   }, %>
+  <%#   class: "px-4 py-2 bg-red-700 rounded text-sm text-white" %>
+  %>
+  <%# %>
+  <%# </div> %>

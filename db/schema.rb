@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_17_191454) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_18_213343) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -159,10 +159,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_17_191454) do
   add_foreign_key "chapters", "mangas"
   add_foreign_key "manga_tags", "mangas"
   add_foreign_key "manga_tags", "tags"
-  add_foreign_key "pages", "chapters"
+  add_foreign_key "pages", "chapters", on_delete: :cascade
   add_foreign_key "ratings", "mangas"
   add_foreign_key "ratings", "users"
-  add_foreign_key "reading_progresses", "chapters"
-  add_foreign_key "reading_progresses", "mangas"
+  add_foreign_key "reading_progresses", "chapters", on_delete: :cascade
+  add_foreign_key "reading_progresses", "mangas", on_delete: :cascade
   add_foreign_key "reading_progresses", "users"
 end

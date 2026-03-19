@@ -5,6 +5,7 @@ class Manga < ApplicationRecord
   has_many :tags, through: :manga_tags
   has_many :bookmarks, dependent: :destroy
   has_many :ratings, dependent: :destroy
+  has_many :reading_progresses, dependent: :destroy
 
   enum :status, {
     ongoing: 0,

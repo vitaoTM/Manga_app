@@ -1,6 +1,7 @@
 class Chapter < ApplicationRecord
   belongs_to :manga
   has_many :pages,  -> { order(:number) }, dependent: :destroy
+  has_many :reading_progresses, dependent: :destroy
 
   validates :number, presence: true, numericality: { greater_than: 0 }, uniqueness: { scope: :manga_id }
   scope :ordered, -> { order(:number) }
