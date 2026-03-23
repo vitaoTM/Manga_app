@@ -8,6 +8,7 @@ class MangasController < ApplicationController
   end
 
   def show
+    @chapters = @manga.chapters.published.ordered
   end
 
   def new

@@ -2,10 +2,13 @@
 
   <%= @manga.title %>
   <div class='flex items-center justify-center mb-6'>
-    <% @chapters.each do |chapter| %>
-      <%= link_to @chapter %>
-      <%= chapter.title if chapter.title %>
-
+    <% if @chapters %>
+      <% @chapters.each do |chapter| %>
+        <%= link_to @chapter %>
+        <%= chapter.title if chapter.title %>
+      <% end %>
+    <% else %>
+      <p>No Chapters Available yet</p>
     <% end %>
   </div>
 

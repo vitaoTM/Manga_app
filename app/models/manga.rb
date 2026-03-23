@@ -35,4 +35,24 @@ class Manga < ApplicationRecord
   def total_chapters
     chapters.count
   end
+
+  def progress_for(manga)
+    reading_progresses.find_by(manga: manga)
+  end
+
+  def caceled?
+    self.status.value == 'canceled'
+  end
+
+  def ongoing?
+    self.status == 'ongoing'
+  end
+
+  def hiatus?
+    self.status == 'hiatus'
+  end
+
+  def completed?
+    self.stauts == 'completed'
+  end
 end

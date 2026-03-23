@@ -1,7 +1,7 @@
 <div class='flex items-center justify-between mb-6'>
   <h1 class='text-2xl font-bold'>Manga</h1>
   <%= link_to "New Manga",
-  admin_dashboard_path,
+  new_manga_path,
   class: "bg-red-600 text-white px-4 py-2 rounded text-sm" %>
 </div>
 <div class='space-y-2'>
@@ -12,7 +12,7 @@
         border-zinc-700
       '
     >
-      <span class='font-medium'><%= manga.title %></span>
+      <span class='font-medium'><%= link_to manga.title, manga_path(manga) %></span>
       <div class='flex gap-3 text-sm'>
         <span class='text-zinc-500'><%= manga.total_chapters %>
           ch</span>

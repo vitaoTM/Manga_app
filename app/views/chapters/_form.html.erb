@@ -1,0 +1,81 @@
+<div
+  class="max-w-2xl mx-auto px-4 py-8 bg-slate-950 min-h-screen text-slate-100"
+>
+  <%= form_with model: [@manga, chapter], class: "space-y-5" do |f| %>
+    <% if chapter.errors.any? %>
+      <div
+        class="
+          bg-red-900/40 border border-red-700 rounded p-4 text-red-300 text-sm
+        "
+      >
+        <% chapter.errors.full_messages.each do |msg| %>
+          <p><%= msg %></p>
+        <% end %>
+      </div>
+    <% end %>
+
+    <div>
+      <%= f.label :number,
+              "Chapter n°:",
+              class: "block text-sm font-medium text-slate-300 mb-1" %>
+      <p class="text-xs text-slate-500 mb-2">
+      </p>
+      <%= f.number_field :number,
+                     step: 0.1,
+                     class:
+                       "w-full bg-slate-800 border-slate-700 rounded px-3 py-2 text-slate-100 text-sm outline-none focul:border-slate-500" %>
+    </div>
+
+    <div>
+      <%= f.label :title,
+              "Title (optional)",
+              class: "block text-sm font-medium text-slate-300 mb-1" %>
+      <%= f.text_field :title,
+                   placeholder: "Leave blank to use 'Chapter N'",
+                   class:
+                     "w-full bg-slate-800 border border-slate-700 rounded
+                        px-3 py-2 text-slate-100 text-sm outline-none
+                        focus:border-slate-500" %>
+    </div>
+
+    <div>
+      <%= f.label :notes,
+              "Translator Notes (optional)",
+              class: "block text-sm font-medium text-slate-300 mb-1" %>
+      <%= f.text_area :notes,
+                  rows: 3,
+                  class:
+                    "w-full bg-slate-800 border border-slate-700 rounded
+                        px-3 py-2 text-slate-100 text-sm outline-none
+                        focus:border-slate-500 resize-none" %>
+    </div>
+
+    <div>
+      <%= f.label :published_at,
+              "Publish Date",
+              class: "block text-sm font-medium text-slate-300 mb-1" %>
+      <p class="text-xs text-slate-500 mb-2">
+        Leave blank to save as draft — only published chapters appear to
+        readers
+      </p>
+      <%= f.datetime_local_field :published_at,
+                             value:
+                               chapter.published_at&.strftime("%Y-%m-%dT%H:%M") ||
+                                 Time.current.strftime("%Y-%m-%dT%H:%M"),
+                             class:
+                               "w-full bg-slate-800 border border-slate-700 rounded
+                        px-3 py-2 text-slate-100 text-sm outline-none
+                        focus:border-slate-500
+                        [color-scheme:dark]" %>
+    </div>
+
+    <div class="py-6">
+
+      <%= f.submit "Save Chapter",
+               class:
+                 "bg-red-600 hover:bg-red-500 text-white font-semibold
+                      py-2 px-6 rounded transition cursor-pointer" %>
+    </div>
+
+  <% end %>
+</div>

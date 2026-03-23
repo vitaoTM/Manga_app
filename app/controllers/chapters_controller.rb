@@ -1,12 +1,20 @@
 class ChaptersController < ApplicationController
   before_action :set_manga
   before_action :set_chapter
-  before_action :set_chapters
   # before_action :require_admin!, only: [ :new, :create, :edit, :update, :destroy ]
 
 
-  def index
-    @chapters = Manga.find(params[:manga_id]).chapters
+  def new
+    @chapter = @manga.chapters.build
+  end
+
+  def create
+    @chapter = @manga.chapters.build(chapter_params)
+    if @chapter.save
+      redirect_to manga_chapter_path(@manga, @chapter.number)
+    else
+      render :new, status: :unprocessable_entity
+    end
   end
 
   def show
@@ -37,7 +45,7 @@ class ChaptersController < ApplicationController
     @chapter = @manga.chapters.find_by(number: params[:id])
   end
 
-  def set_chapters
-    @chapters = Manga.find(params[:manga_id]).chapters
+  def chapter_params
+    params.require(:chapter).permit(:number, :title, :notes, :published_at)
   end
 end

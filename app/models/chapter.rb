@@ -18,4 +18,8 @@ class Chapter < ApplicationRecord
   def prev_chapter
     manga.chapters.where("number < ?", number).order(:number).last
   end
+
+  def page_count
+    pages.count
+  end
 end

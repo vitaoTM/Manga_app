@@ -1,0 +1,12 @@
+<div class="max-w-2xl mx-auto px-6 py-10 text-slate-100">
+  <%= link_to "← #{@manga.title}",
+  manga_path(@manga),
+  class: "text-sm text-red-400 hover:text-red" %>
+
+  <h1 class="text-3xl font-bold mt-4 mb-8">
+    New Chapter —
+    <span class="text-slate-400"><%= @manga.title %></span>
+  </h1>
+
+  <%= render "form", manga: @manga, chapter: @chapter %>
+</div>
