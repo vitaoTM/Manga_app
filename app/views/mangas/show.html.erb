@@ -17,7 +17,7 @@
     >
     <div class="relative p-2.5 md:w-2/5 shrink-0 overflow-hidden">
       <% if @manga.cover_image.attached? %>
-        <p><%= image_tag @manga.cover_image.variant(resize_to_fill: [300, 400]),
+        <p><%= image_tag @manga.cover_image.variant(resize_to_fill: [300, 400]).processed,
           class: "py-6 cover_image" %></p>
       <% else %>
         <%= image_tag "nocover.jpg", class: "w-[300px] h-[400px]" %>
@@ -42,7 +42,7 @@
     <div class="flex items-center justify-between mb-4">
       <h2 class="text-xl font-bold">
         Chapters
-        <span class="text-zinc-500 font-normal text-sm ml-2">
+        <span class="text-slate-500 font-normal text-sm ml-2">
           (<%= @manga.total_chapters %>)
         </span>
       </h2>
@@ -55,34 +55,34 @@
     </div>
 
     <% if @chapters.any? %>
-      <div class="divide-y divide-zinc-800 border border-zinc-800 rounded overflow-hidden">
+      <div class="divide-y divide-slate-800 border border-slate-800 rounded overflow-hidden">
         <% @chapters.each do |chapter| %>
-          <%= link_to manga_chapter_path(@manga, chapter.number),
+          <%= link_to manga_chapter_path(@manga, chapter.number.to_i == chapter.number ? chapter.number.to_i : chapter.number),
                 class: "flex items-center justify-between px-4 py-3
-                        bg-zinc-900 hover:bg-zinc-800 transition group block" do %>
+                        bg-slate-900 hover:bg-slate-800 transition group block" do %>
 
             <div class="flex items-center gap-4">
               <%# Chapter number badge %>
-              <span class="text-xs font-mono text-zinc-500 w-8 shrink-0">
+              <span class="text-xs font-mono text-slate-500 w-8 shrink-0">
                 <%= chapter.number.to_i == chapter.number ? chapter.number.to_i : chapter.number %>
               </span>
               <%# Title %>
-              <span class="text-sm font-medium text-zinc-200 group-hover:text-white transition">
+              <span class="text-sm font-medium text-slate-200 group-hover:text-white transition">
                 <%= chapter.display_title %>
               </span>
             </div>
 
-            <div class="flex items-center gap-4 text-xs text-zinc-500 shrink-0">
+            <div class="flex items-center gap-4 text-xs text-slate-500 shrink-0">
               <span><%= chapter.page_count %> pages</span>
               <span><%= chapter.published_at&.strftime("%b %d, %Y") %></span>
-              <span class="text-zinc-600">→</span>
+              <span class="text-slate-600">→</span>
             </div>
 
           <% end %>
         <% end %>
       </div>
     <% else %>
-      <div class="text-center py-12 text-zinc-500 border border-zinc-800 rounded">
+      <div class="text-center py-12 text-slate-500 border border-slate-800 rounded">
         <p class="mb-2">No chapters published yet.</p>
         <% if current_user&.admin? %>
           <%= link_to "Add the first chapter",
