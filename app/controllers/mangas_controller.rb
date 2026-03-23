@@ -37,7 +37,8 @@ class MangasController < ApplicationController
 
   def destroy
     @manga.destroy
-    redirect_to mangas_path, notice: "Manga deleted."
+    # redirect_to mangas_path, notice: "Manga deleted."
+    redirect_to admin_dashboard_path, notice: "Manga deleted."
   end
 
   private

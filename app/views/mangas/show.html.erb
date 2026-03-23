@@ -23,15 +23,15 @@
         <%= image_tag "nocover.jpg", class: "w-[300px] h-[400px]" %>
       <% end %>
     </div>
+
     <div class="p-6">
       <h1 class='text-4xl font-bold mt-4'><%= @manga.title %></h1>
-        
-
       <div class="text-slate-700 text-base">
         <p class='mt-6 text-slate-300'>Description:
       </div>
       <%= @manga.description %></p>
     </div>
+
   </div>
   <p class="text-slate-400 mt-1">Author:
     <%= @manga.author %></p>

@@ -1,9 +1,7 @@
 class PagesController < ApplicationController
-  before_action :set_manga, only: [ :show, :edit, :update, :destroy ]
-  before_action :set_chapter
+  before_action :set_manga, only: [ :show, :new, :create ]
+  before_action :set_chapter, only: [ :show, :new, :create ]
   before_action :require_admin!, only: [ :new, :create ]
-
-
 
   def show
     @page = @chapter.pages.find_by!(number: params[:id])
@@ -24,15 +22,15 @@ class PagesController < ApplicationController
       render :new, status: :unprocessable_entity and return
     end
 
-    next_number = (@chapter.pages.maximun(:number) || 0) + 1
+    next_number = (@chapter.pages.maximum(:number) || 0) + 1
 
     pages = images.each_with_index.map do |img, i|
-      page = @chapter.pages.build(number: next_number + 1)
-      page.image.attach(imaga)
+      page = @chapter.pages.build(number: next_number + i)
+      page.image.attach(img)
       page
     end
 
-    if pages.all?
+    if pages.all?(&:save)
       redirect_to manga_chapter_path(@manga, @chapter.number), notice: "#{pages.size} page(s) uploaded"
     else
       @page = @chapter.pages.build
@@ -44,7 +42,7 @@ class PagesController < ApplicationController
   private
 
   def set_manga
-    @manga = Manga.find(params[:id])
+    @manga = Manga.find(params[:manga_id])
   end
 
   def set_chapter

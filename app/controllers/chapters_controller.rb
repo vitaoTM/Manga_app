@@ -11,9 +11,19 @@ class ChaptersController < ApplicationController
   def create
     @chapter = @manga.chapters.build(chapter_params)
     if @chapter.save
-      redirect_to manga_chapter_path(@manga, @chapter.number)
+      attach_pages if params.dig(:page, :image).present?
+      redirect_to manga_chapter_path(@manga, @chapter.number),
+        notice: "Chapter added"
     else
       render :new, status: :unprocessable_entity
+    end
+  end
+
+  def update
+    if @chapter.update(chapter_params)
+      attach_pages if params.dig(:page, :image).present?
+      redirect_to manga_chapter_path(@manga, @chapter.number),
+        notice: "Chapter updated"
     end
   end
 
@@ -36,6 +46,17 @@ class ChaptersController < ApplicationController
   end
 
   private
+
+  def attach_pages
+    images = Array(params.dig(:page, :image))
+    next_number = (@chapter.pages.maximum(:number) || 0) + 1
+
+    images.each_with_index do |image, i|
+      page = @chapter.pages.build(number: next_number + 1)
+      page.image.attach(image)
+      page.save
+    end
+  end
 
   def set_manga
     @manga = Manga.find(params[:manga_id])

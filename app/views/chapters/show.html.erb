@@ -1,4 +1,6 @@
-<div class="max-w-2xl mx-auto px-4 py-8 bg-zinc-950 min-h-screen text-zinc-100">
+<div
+  class="max-w-2xl mx-auto px-4 py-8 bg-slate-950 min-h-screen text-zinc-100"
+>
 
   <%# Header %>
   <div
@@ -9,6 +11,11 @@
     <%= link_to @manga.title,
     manga_path(@manga),
     class: "text-sm text-zinc-400 hover:text-white truncate" %>
+    <div>
+      <%= select_tag @manga.chapters.each do |ch| %>
+        <%= ch.number %>
+      <% end %>
+    </div>
     <h1 class="text-lg font-bold ml-4 shrink-0">
       <%= @chapter.display_title %>
     </h1>
@@ -18,10 +25,10 @@
   <% if current_user&.admin? %>
     <div class="flex gap-3 mb-6">
       <%= link_to "Add Pages",
-      new_manga_chapter_page_path(@manga, @chapter.number),
+      new_manga_chapter_page_path(@manga, @chapter.url_number),
       class:
         "text-xs bg-zinc-700 hover:bg-zinc-600 text-white
-                          px-3 py-1.5 rounded transition" %>
+                                                                                                                                                        px-3 py-1.5 rounded transition" %>
     </div>
   <% end %>
 
@@ -40,7 +47,7 @@
       <p class="text-lg mb-2">No pages yet.</p>
       <% if current_user&.admin? %>
         <%= link_to "Upload pages",
-        new_manga_chapter_page_path(@manga, @chapter.number),
+        new_manga_chapter_page_path(@manga, @chapter.number.to_i),
         class: "text-red-400 hover:text-red-300 text-sm underline" %>
       <% end %>
     </div>

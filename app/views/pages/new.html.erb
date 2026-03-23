@@ -1,6 +1,6 @@
 <div class="max-w-2xl mx-auto px-6 py-10 text-zinc-100">
   <%= link_to "← #{@chapter.display_title}",
-  manga_chapter_path(@manga, @chapter.number),
+  manga_chapter_path(@manga, @chapter.url_number),
   class: "text-sm text-zinc-400 hover:text-white" %>
 
   <h1 class="text-3xl font-bold mt-4 mb-2">Upload Pages</h1>
@@ -13,7 +13,7 @@
     pages already uploaded
   </p>
 
-  <%= form_with url: manga_chapter_pages_path(@manga, @chapter.number),
+  <%= form_with url: manga_chapter_pages_path(@manga, @chapter.url_number),
         method: :post,
         html: { multipart: true },
         class: "space-y-6" do |f| %>

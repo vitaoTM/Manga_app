@@ -18,7 +18,7 @@
           ch</span>
         <%= link_to "Edit", edit_manga_path(manga), class: "text-red-400 hover:text-red-300" %>
         <%= button_to "Delete",
-        admin_dashboard_path(manga),
+        manga_path(manga),
         method: :delete,
         data: {
           turbo_confirm: "Delete this manga?",
