@@ -10,7 +10,15 @@
               from-indigo-500 to-purple-500
             "
           >
-            MangaApp
+
+            <% if current_user  && current_user.admin? %>
+              <%= link_to "Admin",
+              admin_dashboard_path,
+              class:
+                "text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-500" %>
+            <% else %>
+              MangaApp
+            <% end %>
           </span>
         <% end %>
 

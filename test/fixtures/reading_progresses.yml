@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  manga: one
+  chapter: one
+  page_number: 1
+
+two:
+  user: two
+  manga: two
+  chapter: two
+  page_number: 1

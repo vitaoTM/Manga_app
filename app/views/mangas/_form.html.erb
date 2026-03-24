@@ -42,6 +42,17 @@
                "w-full bg-slate-800 border border-slate-700 rounded px-3 py-2 text-slate-100 text-sm" %>
   </div>
 
+  <div>
+    <%= f.label :cover_image, class: "block text-sm text-slate-300 mb-1" %>
+    <%= f.file_field :cover_image,
+                 accept: "image/*",
+                 class:
+                   "text-sm text-zinc-400 file:mr-4 file:py-2 file:px-4
+                      file:rounded file:border-0 file:bg-zinc-700
+                      file:text-zinc-200 file:cursor-pointer" %>
+
+  </div>
+
   <div class="py-2">
 
     <%= f.submit "Save",

@@ -1,5 +1,6 @@
 class MangasController < ApplicationController
   before_action :set_manga, only: [ :show, :edit, :update, :destroy ]
+  before_action :require_admin!, only: [ :new, :create, :edit, :update, :destroy ]
 
   def index
     @mangas = Manga.order(created_at: :desc)
@@ -7,6 +8,7 @@ class MangasController < ApplicationController
   end
 
   def show
+    @chapters = @manga.chapters.published.ordered
   end
 
   def new
@@ -35,7 +37,8 @@ class MangasController < ApplicationController
 
   def destroy
     @manga.destroy
-    redirect_to mangas_path, notice: "Manga deleted."
+    # redirect_to mangas_path, notice: "Manga deleted."
+    redirect_to admin_dashboard_path, notice: "Manga deleted."
   end
 
   private
@@ -46,6 +49,6 @@ class MangasController < ApplicationController
 
   def manga_params
     params.require(:manga)
-      .permit(:title, :author, :description, :genre, :status, :cover_image)
+      .permit(:title, :author, :description, :genre, :status, :cover_image, tag_ids: [])
   end
 end

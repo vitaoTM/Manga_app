@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_11_190906) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_18_213343) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -42,6 +42,40 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_11_190906) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "bookmarks", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "manga_id", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["manga_id"], name: "index_bookmarks_on_manga_id"
+    t.index ["user_id", "manga_id"], name: "index_bookmarks_on_user_id_and_manga_id", unique: true
+    t.index ["user_id"], name: "index_bookmarks_on_user_id"
+  end
+
+  create_table "chapters", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "manga_id", null: false
+    t.text "notes"
+    t.decimal "number", precision: 6, scale: 1, null: false
+    t.datetime "published_at"
+    t.string "title"
+    t.datetime "updated_at", null: false
+    t.integer "views_count", default: 0, null: false
+    t.index ["manga_id", "number"], name: "index_chapters_on_manga_id_and_number", unique: true
+    t.index ["manga_id"], name: "index_chapters_on_manga_id"
+    t.index ["published_at"], name: "index_chapters_on_published_at"
+  end
+
+  create_table "manga_tags", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "manga_id", null: false
+    t.bigint "tag_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["manga_id", "tag_id"], name: "index_manga_tags_on_manga_id_and_tag_id", unique: true
+    t.index ["manga_id"], name: "index_manga_tags_on_manga_id"
+    t.index ["tag_id"], name: "index_manga_tags_on_tag_id"
+  end
+
   create_table "mangas", force: :cascade do |t|
     t.string "author", null: false
     t.datetime "created_at", null: false
@@ -56,6 +90,46 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_11_190906) do
     t.index ["status"], name: "index_mangas_on_status"
     t.index ["title"], name: "index_mangas_on_title"
     t.index ["views_count"], name: "index_mangas_on_views_count"
+  end
+
+  create_table "pages", force: :cascade do |t|
+    t.bigint "chapter_id", null: false
+    t.datetime "created_at", null: false
+    t.integer "number", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chapter_id", "number"], name: "index_pages_on_chapter_id_and_number", unique: true
+    t.index ["chapter_id"], name: "index_pages_on_chapter_id"
+  end
+
+  create_table "ratings", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "manga_id", null: false
+    t.integer "score", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["manga_id"], name: "index_ratings_on_manga_id"
+    t.index ["user_id", "manga_id"], name: "index_ratings_on_user_id_and_manga_id", unique: true
+    t.index ["user_id"], name: "index_ratings_on_user_id"
+  end
+
+  create_table "reading_progresses", force: :cascade do |t|
+    t.bigint "chapter_id", null: false
+    t.datetime "created_at", null: false
+    t.bigint "manga_id", null: false
+    t.integer "page_number", default: 1, null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["chapter_id"], name: "index_reading_progresses_on_chapter_id"
+    t.index ["manga_id"], name: "index_reading_progresses_on_manga_id"
+    t.index ["user_id", "manga_id"], name: "index_reading_progresses_on_user_id_and_manga_id", unique: true
+    t.index ["user_id"], name: "index_reading_progresses_on_user_id"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "name", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_tags_on_name", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -80,4 +154,15 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_11_190906) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "bookmarks", "mangas"
+  add_foreign_key "bookmarks", "users"
+  add_foreign_key "chapters", "mangas"
+  add_foreign_key "manga_tags", "mangas"
+  add_foreign_key "manga_tags", "tags"
+  add_foreign_key "pages", "chapters", on_delete: :cascade
+  add_foreign_key "ratings", "mangas"
+  add_foreign_key "ratings", "users"
+  add_foreign_key "reading_progresses", "chapters", on_delete: :cascade
+  add_foreign_key "reading_progresses", "mangas", on_delete: :cascade
+  add_foreign_key "reading_progresses", "users"
 end
