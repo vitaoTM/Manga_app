@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   end
 
   resources :mangas do
-    resources :chapters, only: [ :show, :create, :new ] do
+    resources :chapters, only: [ :show, :create, :new, :edit, :update ] do
       resources :pages, only: [ :show, :new, :create ]
     end
   end

@@ -1,23 +1,35 @@
 <div
-  <%# class="max-w-3/4 mx-auto px-4 py-8 bg-slate-950 min-h-screen text-zinc-100" %>
+  <%# class="max-w-3/4 mx-auto px-4 py-8 bg-slate-950 min-h-screen text-slate-100" %>
   class="container mx-auto px-4 py-8 bg-slate-950 min-h-screen text-slate-100"
 >
 
   <%# Header %>
   <div
     class="
-      flex items-center justify-between mb-6 pb-4 border-b border-zinc-800
+      flex items-center justify-between mb-6 pb-4 border-b border-slate-800
     "
   >
-    <%= link_to @manga.title,
+    <%= link_to @manga.title.upcase,
     manga_path(@manga),
-    class: "text-sm text-zinc-400 hover:text-white truncate" %>
-    <div class="flex items-center gap-2" data-controller="navigation" data-navigation-base-url-value="<%= manga_path(@manga) %>">
+    class: "text-sm text-slate-400 hover:text-white truncate" %>
+    <div
+      class="flex items-center gap-2"
+      data-controller="navigation"
+      data-navigation-base-url-value="<%= manga_path(@manga) %>"
+    >
       <label class="text-[10px] text-zinc-500 uppercase font-bold">Jump to:</label>
       <%= select_tag :chapter_navigation,
-            options_from_collection_for_select(@manga.chapters.published.ordered, :url_number, :display_title, @chapter.url_number),
-            class: "bg-slate-800 border-slate-700 text-slate-200 text-xs rounded px-2 py-1 focus:ring-1 focus:ring-red-500 outline-none cursor-pointer",
-            data: { action: "change->navigation#jump" } %>
+      options_from_collection_for_select(
+        @manga.chapters.published.ordered,
+        :url_number,
+        :display_title,
+        @chapter.url_number,
+      ),
+      class:
+        "bg-slate-800 border-slate-700 text-slate-200 text-xs rounded px-2 py-1 focus:ring-1 focus:ring-red-500 outline-none cursor-pointer",
+      data: {
+        action: "change->navigation#jump",
+      } %>
     </div>
     <h1 class="text-lg font-bold ml-4 shrink-0">
       <%= @chapter.display_title %>
@@ -30,7 +42,11 @@
       <%= link_to "Add Pages",
       new_manga_chapter_page_path(@manga, @chapter.url_number),
       class:
-        "text-xs bg-zinc-700 hover:bg-zinc-600 text-white px-3 py-1.5 rounded transition" %>
+        "text-xs bg-slate-700 hover:bg-slate-600 text-white px-3 py-1.5 rounded transition" %>
+      <%= link_to "Edit Chapter",
+      edit_manga_chapter_path(@manga, @chapter.url_number),
+      class:
+        "text-xs bg-slate-700 hover:bg-slate-600 text-white px-3 py-1.5 rounded transition" %>
     </div>
   <% end %>
 
@@ -45,7 +61,7 @@
       <% end %>
     <% end %>
   <% else %>
-    <div class="text-center py-24 text-zinc-500">
+    <div class="text-center py-24 text-slate-500">
       <p class="text-lg mb-2">No pages yet.</p>
       <% if current_user&.admin? %>
         <%= link_to "Upload pages",
@@ -56,10 +72,10 @@
   <% end %>
 
   <%# Chapter navigation %>
-  <div class="flex justify-between mt-10 pt-6 border-t border-zinc-800 text-sm">
+  <div class="flex justify-between mt-10 pt-6 border-t border-slate-800 text-sm">
     <% if @prev_chapter %>
       <%= link_to manga_chapter_path(@manga, @prev_chapter.number),
-            class: "text-zinc-400 hover:text-white flex items-center gap-2" do %>
+            class: "text-slate-400 hover:text-white flex items-center gap-2" do %>
         <span>←</span>
         <span><%= @prev_chapter.display_title %></span>
       <% end %>

@@ -1,7 +1,7 @@
 class ChaptersController < ApplicationController
   before_action :set_manga
-  before_action :set_chapter
-  # before_action :require_admin!, only: [ :new, :create, :edit, :update, :destroy ]
+  before_action :set_chapter, only: [ :show, :edit, :update, :destroy ]
+  before_action :require_admin!, only: [ :new, :create, :edit, :update, :destroy ]
 
 
   def new
@@ -19,11 +19,16 @@ class ChaptersController < ApplicationController
     end
   end
 
+  def edit
+  end
+
   def update
     if @chapter.update(chapter_params)
       attach_pages if params.dig(:page, :image).present?
       redirect_to manga_chapter_path(@manga, @chapter.number),
         notice: "Chapter updated"
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -45,10 +50,15 @@ class ChaptersController < ApplicationController
     end
   end
 
+  def destroy
+    @chapter.destroy
+    redirect_to manga_path(@manga), notice: "Chapter deleted."
+  end
+
   private
 
   def attach_pages
-    images = Array(params.dig(:page, :image))
+    images = Array(params.dig(:page, :images))
     next_number = (@chapter.pages.maximum(:number) || 0) + 1
 
     images.each_with_index do |image, i|

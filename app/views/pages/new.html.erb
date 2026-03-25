@@ -1,10 +1,19 @@
-<div class="max-w-2xl mx-auto px-6 py-10 text-zinc-100">
+<% if flash[:alert] %>
+  <div
+    class="
+      bg-red-900/40 border border-red-700 rounded p-4 text-red-300 text-sm py-6
+    "
+  >
+    <%= flash[:alert] %>
+  </div>
+<% end %>
+<div class="max-w-2xl mx-auto px-6 py-10 text-slate-100">
   <%= link_to "← #{@chapter.display_title}",
   manga_chapter_path(@manga, @chapter.url_number),
-  class: "text-sm text-zinc-400 hover:text-white" %>
+  class: "text-sm text-slate-400 hover:text-white" %>
 
   <h1 class="text-3xl font-bold mt-4 mb-2">Upload Pages</h1>
-  <p class="text-zinc-400 text-sm mb-8">
+  <p class="text-slate-400 text-sm mb-8">
     <%# @manga.title %>
     —
     <%= @chapter.display_title %>
@@ -17,56 +26,43 @@
         method: :post,
         html: { multipart: true },
         class: "space-y-6" do |f| %>
-
-    <% if flash[:alert] %>
-      <div
-        class="
-          bg-red-900/40 border border-red-700 rounded p-4 text-red-300 text-sm
-        "
-      >
-        <%= flash[:alert] %>
-      </div>
-    <% end %>
-
     <div>
-      <label class="block text-sm font-medium text-zinc-300 mb-1">
+      <label class="block text-sm font-medium text-slate-300 mb-1">
         Page Images
       </label>
-      <p class="text-xs text-zinc-500 mb-3">
+      <p class="text-xs text-slate-500 mb-3">
         Select multiple files at once — they will be numbered sequentially
         starting from page
         <%= (@chapter.page_count + 1) %>. Name your files in order (01.jpg, 02.jpg…) so they upload correctly.
       </p>
-      <input
-        type="file"
-        name="page[images][]"
-        multiple
-        accept="image/jpeg,image/png,image/webp"
-        class="
-          block w-full text-sm text-zinc-400 file:mr-4 file:py-2 file:px-4 file:rounded
-          file:border-0 file:text-sm file:font-semibold file:bg-zinc-700
-          file:text-zinc-200 file:cursor-pointer hover:file:bg-zinc-600
-        "
-      />
+      <%= f.file_field :images,
+                   multiple: true,
+                   accept: "image/jpeg,image/png,image/webp",
+                   name: "images[]",
+                   class:
+                     "block w-full text-sm text-slate-400
+                                                              file:mr-4 file:py-2 file:px-4 file:rounded
+                                                              file:border-0 file:bg-slate-700 file:text-slate-200
+                                                              file:cursor-pointer hover:file:bg-slate-600" %>
     </div>
 
     <%# Existing pages preview %>
     <% if @chapter.pages.any? %>
       <div>
-        <p class="text-sm font-medium text-zinc-300 mb-3">
+        <p class="text-sm font-medium text-slate-300 mb-3">
           Already uploaded (<%= @chapter.page_count %>
           pages)
         </p>
         <div class="grid grid-cols-6 gap-2">
           <% @chapter.pages.ordered.each do |page| %>
-            <div class="relative aspect-[2/3] bg-zinc-800 rounded overflow-hidden">
+            <div class="relative aspect-[2/3] bg-slate-800 rounded overflow-hidden">
               <% if page.image.attached? %>
                 <%= image_tag page.image, class: "w-full h-full object-cover", loading: "lazy" %>
               <% end %>
               <span
                 class="
                   absolute bottom-0 left-0 right-0 text-center text-[10px] bg-black/60
-                  text-zinc-300 py-0.5
+                  text-slate-300 py-0.5
                 "
               >
                 <%= page.number %>
