@@ -7,34 +7,36 @@
     class:
       "bg-red-600 hover:bg-red-500 text-white text-sm font-semibold px-4 py-2 rounded transition-colors" %>
 
-      <%# Bookmark button — signed in users only %>
+    <%# Bookmark button — signed in users only %>
     <% if user_signed_in? %>
-        <% if current_user.bookmarked?(@manga) %>
-          <%= button_to "♥ In Library",
-                bookmark_manga_path(@manga),
-                method: :delete,
-                class: "bg-red-600 hover:bg-red-500 text-white text-sm
-                        font-semibold px-4 py-2 rounded transition cursor-pointer" %>
-        <% else %>
-          <%= button_to "♡ Add to Library",
-                bookmark_manga_path(@manga),
-                method: :post,
-                class: "bg-slate-700 hover:bg-slate-600 text-slate-200 text-sm
-                        font-semibold px-4 py-2 rounded transition cursor-pointer" %>
-        <% end %>
+      <% if current_user.bookmarked?(@manga) %>
+        <%= button_to "♥ In Library",
+        bookmark_manga_path(@manga),
+        method: :delete,
+        class:
+          "bg-red-600 hover:bg-red-500 text-white text-sm
+                                                font-semibold px-4 py-2 rounded transition cursor-pointer" %>
+      <% else %>
+        <%= button_to "♡ Add to Library",
+        bookmark_manga_path(@manga),
+        method: :post,
+        class:
+          "bg-slate-700 hover:bg-slate-600 text-slate-200 text-sm
+                                                font-semibold px-4 py-2 rounded transition cursor-pointer" %>
+      <% end %>
     <% end %>
   </div>
 
-  <span class='inline-block mt-3 px-3 py-1 text-xs rounded bg-green-600 text-white'><%= @manga.status.humanize %></span>
+  <span class=''><%= status_badge(@manga) %></span>
   <div
     class="
       relative flex flex-col md:flex-row w-full my-6 bg-slate-900 shadow-sm border
       border-slate-950 round-lg w-96
     "
-    >
+  >
     <div class="relative p-2.5 md:w-2/5 shrink-0 overflow-hidden">
       <% if @manga.cover_image.attached? %>
-        <p><%= image_tag @manga.cover_image.variant(resize_to_fill: [300, 400]).processed,
+        <p><%= image_tag @manga.cover_image.variant(resize_to_fill: [300, 455]).processed,
           class: "py-6 cover_image" %></p>
       <% else %>
         <%= image_tag "nocover.jpg", class: "w-[300px] h-[400px]" %>
@@ -44,9 +46,12 @@
     <div class="p-6">
       <h1 class='text-4xl font-bold mt-4'><%= @manga.title %></h1>
       <div class="text-slate-700 text-base">
-        <p class='mt-6 text-slate-300'>Description:
+        <% if not @manga.description.blank? %>
+          <p class='mt-6 text-slate-300 text-justify'>Description:
+            <%= @manga.description %></p>
+        <% end %>
       </div>
-      <%= @manga.description %></p>
+
     </div>
 
   </div>
@@ -65,14 +70,19 @@
       </h2>
       <% if current_user&.admin? %>
         <%= link_to "Add Chapter",
-              new_manga_chapter_path(@manga),
-              class: "text-xs bg-red-600 hover:bg-red-500 text-white
-                      px-3 py-1.5 rounded transition" %>
+        new_manga_chapter_path(@manga),
+        class:
+          "text-xs bg-red-600 hover:bg-red-500 text-white
+                                              px-3 py-1.5 rounded transition" %>
       <% end %>
     </div>
 
     <% if @chapters.any? %>
-      <div class="divide-y divide-slate-800 border border-slate-800 rounded overflow-hidden">
+      <div
+        class="
+          divide-y divide-slate-800 border border-slate-800 rounded overflow-hidden
+        "
+      >
         <% @chapters.each do |chapter| %>
           <%= link_to manga_chapter_path(@manga, chapter.number.to_i == chapter.number ? chapter.number.to_i : chapter.number),
                 class: "flex items-center justify-between px-4 py-3
@@ -84,13 +94,18 @@
                 <%= chapter.number.to_i == chapter.number ? chapter.number.to_i : chapter.number %>
               </span>
               <%# Title %>
-              <span class="text-sm font-medium text-slate-200 group-hover:text-white transition">
+              <span
+                class="
+                  text-sm font-medium text-slate-200 group-hover:text-white transition
+                "
+              >
                 <%= chapter.display_title %>
               </span>
             </div>
 
             <div class="flex items-center gap-4 text-xs text-slate-500 shrink-0">
-              <span><%= chapter.page_count %> pages</span>
+              <span><%= chapter.page_count %>
+                pages</span>
               <span><%= chapter.published_at&.strftime("%b %d, %Y") %></span>
               <span class="text-slate-600">→</span>
             </div>
@@ -103,8 +118,8 @@
         <p class="mb-2">No chapters published yet.</p>
         <% if current_user&.admin? %>
           <%= link_to "Add the first chapter",
-                new_manga_chapter_path(@manga),
-                class: "text-red-400 hover:text-red-300 text-sm underline" %>
+          new_manga_chapter_path(@manga),
+          class: "text-red-400 hover:text-red-300 text-sm underline" %>
         <% end %>
       </div>
     <% end %>
