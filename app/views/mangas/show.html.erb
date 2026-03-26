@@ -6,6 +6,23 @@
     mangas_path,
     class:
       "bg-red-600 hover:bg-red-500 text-white text-sm font-semibold px-4 py-2 rounded transition-colors" %>
+
+      <%# Bookmark button — signed in users only %>
+    <% if user_signed_in? %>
+        <% if current_user.bookmarked?(@manga) %>
+          <%= button_to "♥ In Library",
+                bookmark_manga_path(@manga),
+                method: :delete,
+                class: "bg-red-600 hover:bg-red-500 text-white text-sm
+                        font-semibold px-4 py-2 rounded transition cursor-pointer" %>
+        <% else %>
+          <%= button_to "♡ Add to Library",
+                bookmark_manga_path(@manga),
+                method: :post,
+                class: "bg-slate-700 hover:bg-slate-600 text-slate-200 text-sm
+                        font-semibold px-4 py-2 rounded transition cursor-pointer" %>
+        <% end %>
+    <% end %>
   </div>
 
   <span class='inline-block mt-3 px-3 py-1 text-xs rounded bg-green-600 text-white'><%= @manga.status.humanize %></span>

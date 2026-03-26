@@ -31,7 +31,7 @@
 
             <% if user_signed_in? %>
               <%= link_to "My Library",
-              "#",
+              library_path,
               class:
                 "text-gray-300 hover:bg-slate-800 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200" %>
             <% end %>
@@ -41,22 +41,6 @@
 
       <div class="hidden md:block">
         <div class="ml-4 flex items-center md:ml-6">
-          <% if current_user.avatar.attached? %>
-            <div class="px-4">
-              <%= image_tag current_user.avatar.variant(resize_to_fill: [40, 40], format: :webp),
-              class: "w-10 h-10 rounded-full object-cover" %>
-            </div>
-          <% else %>
-            <div
-              class="
-                w-10 h-10 rounded-full bg-slate-700 px-5 flex items-center justify-center
-                text-sm font-bold text-zinc-300
-              "
-            >
-              <%= current_user.username&.first&.upcase %>
-            </div>
-          <% end %>
-
           <% if user_signed_in? %>
             <span class="text-slate-400 text-sm mr-4">
               Hello,

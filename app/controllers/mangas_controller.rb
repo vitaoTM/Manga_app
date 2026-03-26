@@ -1,5 +1,5 @@
 class MangasController < ApplicationController
-  before_action :set_manga, only: [ :show, :edit, :update, :destroy ]
+  before_action :set_manga, only: [ :show, :edit, :update, :destroy, :bookmark, :unbookmark ]
   before_action :require_admin!, only: [ :new, :create, :edit, :update, :destroy ]
 
   def index
@@ -39,6 +39,18 @@ class MangasController < ApplicationController
     @manga.destroy
     # redirect_to mangas_path, notice: "Manga deleted."
     redirect_to admin_dashboard_path, notice: "Manga deleted."
+  end
+
+  def bookmark
+    authenticate_user!
+    current_user.bookmarks.find_or_create_by!(manga: @manga)
+    redirect_to fallback_location: @manga, notice: "Added to library"
+  end
+
+  def unbookmark
+    authenticate_user!
+    current_user.bookmarks.find_by(manga: @manga)&.destroy
+    redirect_to fallback_location: @manga, notice: "Removed from library"
   end
 
   private
