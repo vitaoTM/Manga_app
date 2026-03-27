@@ -22,6 +22,7 @@ class Manga < ApplicationRecord
     other: 99
   }, prefix: true
 
+  scope :by_latest, -> { order(created_at: :desc) }
   validates :title, presence: true
   validates :author, presence: true
   # validates :status, presence: true
@@ -41,18 +42,18 @@ class Manga < ApplicationRecord
   end
 
   def caceled?
-    self.status.value == 'canceled'
+    self.status.value == "canceled"
   end
 
   def ongoing?
-    self.status == 'ongoing'
+    self.status == "ongoing"
   end
 
   def hiatus?
-    self.status == 'hiatus'
+    self.status == "hiatus"
   end
 
   def completed?
-    self.stauts == 'completed'
+    self.stauts == "completed"
   end
 end

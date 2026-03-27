@@ -11,7 +11,7 @@ TODO.md
 
 # Ignore all environment files.
 /.env*
-app/controllers/admin/*
+# app/controllers/admin/*
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*

@@ -24,6 +24,7 @@ class Chapter < ApplicationRecord
   end
 
   def url_number
-    number == number.to_i ? number.to_i : number
+    n = number == number.to_i ? number.to_i : number
+    n.to_s
   end
 end

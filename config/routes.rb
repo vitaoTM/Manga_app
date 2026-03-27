@@ -6,12 +6,18 @@ Rails.application.routes.draw do
   resources :mangas do
     member do
       post   :bookmark
-      delete :bookmark, action: :unbookmark
+      delete :bookmark
     end
-    resources :chapters, only: [ :show, :create, :new, :edit, :update ] do
-      resources :pages, only: [ :show, :new, :create, :destroy ]
+    resources :chapters,
+          only: [ :show, :new, :create, :edit, :update ],
+          constraints: { id: /[0-9]+(\.[0-9]+)?/ } do
+      resources :pages,
+            only: [ :show, :new, :create, :destroy ],
+            constraints: { chapter_id: /[0-9]+(\.[0-9]+)?/ }
     end
   end
+
+  resources :tags, only: [ :index, :show, :new, :create, :edit, :update, :destroy ]
 
   get "library", to: "library#show", as: :library
 

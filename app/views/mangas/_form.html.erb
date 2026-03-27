@@ -12,29 +12,47 @@
   <% end %>
 
   <div>
-    <%= f.label :title, class: "block text-sm text-slate-300 mb-1" %>
+    <%= f.label :title, class: "block text-sm text-slate-300 mb-1 mt-4" %>
     <%= f.text_field :title,
                  class:
                    "w-full bg-slate-800 border border-slate-700 rounded px-3 py-2 text-slate-100 text-sm" %>
   </div>
 
   <div>
-    <%= f.label :author, class: "block text-sm text-slate-300 mb-1" %>
+    <%= f.label :author, class: "block text-sm text-slate-300 mb-1 mt-4" %>
     <%= f.text_field :author,
                  class:
                    "w-full bg-slate-800 border border-slate-700 rounded px-3 py-2 text-slate-100 text-sm" %>
   </div>
 
+  <div class="mt-4">
+    <%= f.label :tags, class: "block text-sm text-slate-300 mb-2 mt-2" %>
+    <div class="flex flex-wrap gap-2">
+      <%= f.collection_checkboxes :tag_ids, Tag.all, :id, :name do |b| %>
+        <div
+          class="
+            flex items-center gap-2 px-3 py-1.5 bg-slate-800 border border-slate-700
+            rounded-md cursor-pointer hover:bg-slate-700 transition-colors
+          "
+        >
+          <%= b.check_box class:
+                        "w-4 h-4 rounded border-slate-600 bg-slate-900 text-red-600 focus:ring-red-500 focus:ring-offset-slate-800" %>
+          <%= b.label class: "text-xs font-medium text-slate-200 cursor-pointer select-none" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
   <div>
-    <%= f.label :description, class: "block text-sm text-slate-300 mb-1" %>
+    <%= f.label :description, class: "block text-sm text-slate-300 mb-1 mt-4" %>
     <%= f.text_area :description,
-                rows: 4,
+                rows: 6,
                 class:
                   "w-full bg-slate-800 border border-slate-700 rounded px-3 py-2 text-slate-100 text-sm" %>
   </div>
 
   <div>
-    <%= f.label :status, class: "block text-sm text-slate-300 mb-1" %>
+    <%= f.label :status, class: "block text-sm text-slate-300 mb-1 mt-4" %>
     <%= f.select :status,
              Manga.statuses.keys.map { |s| [s.humanize.downcase] },
              {},
@@ -43,13 +61,23 @@
   </div>
 
   <div>
-    <%= f.label :cover_image, class: "block text-sm text-slate-300 mb-1" %>
+
+    <% if @manga.cover_image.attached? %>
+      <%= f.label :current_cover, class: "block text-sm text-slate-300 mb-1 mt-4" %>
+      <div class="grid grid-cols-4 sm:grid-cols-6 gap-3 py-2">
+        <div class="relative aspect-[2/3] bg-slate-800 rounded overflow-hidden group">
+          <%= image_tag @manga.cover_image,
+          class: "w-full h-full object-cover",
+          loading: "lazy" %>
+        </div>
+      </div>
+    <% else %>
+      <%= f.label :cover_image, class: "block text-sm text-slate-300 mb-1 mt-4" %>
+    <% end %>
     <%= f.file_field :cover_image,
                  accept: "image/*",
                  class:
-                   "text-sm text-zinc-400 file:mr-4 file:py-2 file:px-4
-                      file:rounded file:border-0 file:bg-zinc-700
-                      file:text-zinc-200 file:cursor-pointer" %>
+                   "text-sm text-zinc-400 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:bg-zinc-700 file:text-zinc-200 file:cursor-pointer" %>
 
   </div>
 

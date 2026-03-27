@@ -23,7 +23,7 @@
         @manga.chapters.published.ordered,
         :url_number,
         :display_title,
-        @chapter.url_number,
+        @chapter.url_number.to_s,
       ),
       class:
         "bg-slate-800 border-slate-700 text-slate-200 text-xs rounded px-2 py-1 focus:ring-1 focus:ring-red-500 outline-none cursor-pointer",
@@ -40,11 +40,11 @@
   <% if current_user&.admin? %>
     <div class="flex gap-3 mb-6">
       <%= link_to "Add Pages",
-      new_manga_chapter_page_path(@manga, @chapter.url_number),
+      new_manga_chapter_page_path(@manga, @chapter.url_number.to_s),
       class:
         "text-xs bg-slate-700 hover:bg-slate-600 text-white px-3 py-1.5 rounded transition" %>
       <%= link_to "Edit Chapter",
-      edit_manga_chapter_path(@manga, @chapter.url_number),
+      edit_manga_chapter_path(@manga, @chapter.url_number.to_s),
       class:
         "text-xs bg-slate-700 hover:bg-slate-600 text-white px-3 py-1.5 rounded transition" %>
     </div>
@@ -65,7 +65,7 @@
       <p class="text-lg mb-2">No pages yet.</p>
       <% if current_user&.admin? %>
         <%= link_to "Upload pages",
-        new_manga_chapter_page_path(@manga, @chapter.number.to_i),
+        new_manga_chapter_page_path(@manga, @chapter.number),
         class: "text-red-400 hover:text-red-300 text-sm underline" %>
       <% end %>
     </div>

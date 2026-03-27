@@ -4,7 +4,6 @@ class MangasController < ApplicationController
 
   def index
     @mangas = Manga.order(created_at: :desc)
-    # change latter maybe for updated latter
   end
 
   def show

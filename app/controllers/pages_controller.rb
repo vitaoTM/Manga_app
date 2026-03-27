@@ -32,7 +32,7 @@ class PagesController < ApplicationController
         page.save!
       end
 
-      redirect_to manga_chapter_path(@manga, @chapter.url_number),
+      redirect_to manga_chapter_path(@manga, @chapter.url_number.to_s),
         notice: "#{images.size} page(s) uploaded."
 
     rescue ActiveRecord::RecordInvalid => e
@@ -40,20 +40,13 @@ class PagesController < ApplicationController
       @page = @chapter.pages.build
       render :new, status: :unprocessable_entity
     end
+  end
 
-    def destroy
-      @page.image.purge
-      @page.destroy
-      redirect_to edit_manga_chapter_path(@manga, @chapter.url_number),
-        notice: "Page #{@page.number} deleted."
-    end
-    # if pages.all?(&:save)
-    #   redirect_to manga_chapter_path(@manga, @chapter.number), notice: "#{pages.size} page(s) uploaded"
-    # else
-    #   @page = @chapter.pages.build
-    #   flash.now[:alert] = "Some pages failed to upload"
-    #   render :new, status: :unprocessable_entity
-    # end
+  def destroy
+    @page.image.purge
+    @page.destroy
+    redirect_to edit_manga_chapter_path(@manga, @chapter.url_number.to_s),
+      notice: "Page #{@page.number} deleted."
   end
 
   private

@@ -8,13 +8,13 @@
   <% @recent_mangas.each do |manga| %>
     <div
       class='
-        flex items-center justify-between bg-zinc-800 rounded px-4 py-3 border
-        border-zinc-700
+        flex items-center justify-between bg-slate-800 rounded px-4 py-3 border
+        border-slate-700
       '
     >
       <span class='font-medium'><%= link_to manga.title, manga_path(manga) %></span>
       <div class='flex gap-3 text-sm'>
-        <span class='text-zinc-500'><%= manga.total_chapters %>
+        <span class='text-slate-500'><%= manga.total_chapters %>
           ch</span>
         <%= link_to "Edit", edit_manga_path(manga), class: "text-red-400 hover:text-red-300" %>
         <%= button_to "Delete",

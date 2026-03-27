@@ -1,0 +1,47 @@
+<div class="max-w-6xl mx-auto px-6 py-10">
+  <div class="mb-8">
+    <%= link_to "← All Tags", tags_path, class: "text-sm text-zinc-400 hover:text-white" %>
+    <h1 class="text-3xl font-bold mt-4">
+      #<%= @tag.name %>
+      <span class="text-zinc-500 font-normal text-xl ml-2">
+        <%= @mangas.count %>
+        <%= "manga".pluralize(@mangas.count) %>
+      </span>
+    </h1>
+  </div>
+
+  <% if @mangas.any? %>
+    <div class="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-5">
+      <% @mangas.each do |manga| %>
+        <%= link_to manga_path(manga), class: "block group" do %>
+          <div
+            class="
+              aspect-[2/3] bg-zinc-800 rounded mb-2 border border-zinc-700
+              group-hover:border-zinc-500 overflow-hidden transition-colors
+            "
+          >
+            <% if manga.cover_image.attached? %>
+              <%= image_tag manga.cover_image,
+              class: "w-full h-full object-cover",
+              loading: "lazy" %>
+            <% else %>
+              <div
+                class="
+                  w-full h-full flex items-center justify-center text-zinc-600 text-4xl
+                "
+              >📖</div>
+            <% end %>
+          </div>
+          <p class="text-sm font-semibold line-clamp-2 group-hover:text-white transition">
+            <%= manga.title %>
+          </p>
+          <p class="text-xs text-zinc-500 mt-0.5"><%= manga.author %></p>
+        <% end %>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="text-zinc-500 text-center py-16">
+      No manga with this tag yet.
+    </p>
+  <% end %>
+</div>
