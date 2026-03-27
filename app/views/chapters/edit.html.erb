@@ -96,7 +96,7 @@
         <div class="mt-5">
           
         <%= button_to "Delete Chapter",
-        manga_chapter_path(@manga, @chapter.url_number.to_s),
+        manga_chapter_path(@manga, @chapter.url_number),
         method: :delete,
         data: {
           turbo_confirm:

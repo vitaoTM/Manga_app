@@ -9,7 +9,7 @@ Rails.application.routes.draw do
       delete :bookmark
     end
     resources :chapters,
-          only: [ :show, :new, :create, :edit, :update ],
+          only: [ :show, :new, :create, :edit, :update, :destroy ],
           constraints: { id: /[0-9]+(\.[0-9]+)?/ } do
       resources :pages,
             only: [ :show, :new, :create, :destroy ],
