@@ -25,17 +25,29 @@
     <% end %>
   </div>
 
-  <span class=''><%= status_badge(@manga) %></span>
   <div
     class="
-      relative flex flex-col md:flex-row w-full my-6 bg-slate-900 shadow-sm border
-      border-slate-950 round-lg w-96
+      mt-4 mb-4 max-w-6xl mx-auto mb-8 flex items-center justify-between relative flex
+    "
+  >
+    <%= render "ratings/form",
+    manga: @manga,
+    rating: user_signed_in? ? current_user.rating_for(@manga) : nil %>
+
+  </div>
+
+  <span class= 'max-w-6xl mx-auto mb-8 flex items-center justify-between relative flex '><%= status_badge(@manga) %></span>
+  <div
+    class="
+      max-w-6xl mx-auto mb-8   relative flex flex-col
+      md:flex-row w-full my-6 bg-slate-900 shadow-sm border border-slate-950 rounded-xl
+      w-96
     "
   >
     <div class="relative p-2.5 md:w-2/5 shrink-0 overflow-hidden">
       <% if @manga.cover_image.attached? %>
         <p><%= image_tag @manga.cover_image.variant(resize_to_fill: [300, 455]).processed,
-          class: "py-6 cover_image" %></p>
+          class: "py-6 px-4 cover_image" %></p>
       <% else %>
         <%= image_tag "nocover.jpg", class: "w-[300px] h-[400px]" %>
       <% end %>
@@ -53,15 +65,16 @@
     </div>
 
   </div>
-  <p class="text-slate-400 mt-1">Author:
+  <p class="text-slate-400 mt-1 max-w-6xl mx-auto mb-8 flex items-center justify-between relative flex ">Author:
     <%= @manga.author %></p>
   <% if @manga.tags.any? %>
-    <div class="flex flex-wrap gap-2 mt-3">
+    <div class="flex flex-wrap gap-2 max-w-6xl mx-auto mb-8 flex items-center justify-between relative flex 
+">
       <% @manga.tags.each do |tag| %>
         <%= link_to "##{tag.name}",
         tag_path(tag),
         class:
-          "text-xs px-2.5 py-1 bg-slate-800 hover:bg-slate-700 border border-slate-700 hover:border-slate-500 rounded-full text-slate-400 hover:text-slate-200 transition" %>
+        "text-xs px-2.5 py-1 bg-slate-800 hover:bg-slate-700 border border-slate-700 hover:border-slate-500 rounded-full text-slate-400 hover:text-slate-200 transition" %>
       <% end %>
     </div>
   <% end %>
@@ -80,7 +93,7 @@
         new_manga_chapter_path(@manga),
         class:
           "text-xs bg-red-600 hover:bg-red-500 text-white
-                                                                                                                      px-3 py-1.5 rounded transition" %>
+                                                                                                                                                                                                      px-3 py-1.5 rounded transition" %>
       <% end %>
     </div>
 

@@ -17,6 +17,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :ratings, only: [ :create, :update, :destroy ]
+
   resources :tags, only: [ :index, :show, :new, :create, :edit, :update, :destroy ]
 
   get "library", to: "library#show", as: :library

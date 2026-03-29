@@ -1,0 +1,71 @@
+<%# Star display — average rating %>
+<div class="flex items-center gap-2 mb-2">
+  <span class="text-yellow-400 text-sm font-bold">
+    <%= manga.rating > 0 ? "★ #{manga.rating}" : "★ —" %>
+  </span>
+  <span class="text-slate-500 text-xs">
+    (<%= manga.ratings.count %>
+    <%= "rating".pluralize(manga.ratings.count) %>)
+  </span>
+</div>
+
+<% if user_signed_in? %>
+  <div class="flex items-center gap-2">
+
+    <% if rating %>
+      <%= form_with url: rating_path(rating), method: :patch,
+            class: "flex items-center gap-2" do %>
+        <input type="hidden" name="rating[manga_id]" value="<%= manga.id %>">
+        <select
+          name="rating[score]"
+          class="
+            bg-slate-800 border border-slate-700 rounded px-2 py-1 text-slate-200 text-xs
+            outline-none [color-scheme:dark]
+          "
+        >
+          <% (1..10).each do |n| %>
+            <option value="<%= n %>" <%= "selected" if rating.score == n %>><%= n %>
+              ★</option>
+          <% end %>
+        </select>
+        <button
+          type="submit"
+          class="
+            bg-slate-700 hover:bg-slate-600 text-white text-xs font-semibold px-3 py-1
+            rounded transition cursor-pointer
+          "
+        >
+          Update
+        </button>
+      <% end %>
+    <% else %>
+      <%= form_with url: ratings_path, method: :post,
+            class: "flex items-center gap-2" do %>
+        <input type="hidden" name="rating[manga_id]" value="<%= manga.id %>">
+        <select
+          name="rating[score]"
+          class="
+            bg-slate-800 border border-slate-700 rounded px-2 py-1 text-slate-200 text-xs
+            outline-none [color-scheme:dark]
+          "
+        >
+          <option value="">Rate</option>
+          <% (1..10).each do |n| %>
+            <option value="<%= n %>"><%= n %>
+              ★</option>
+          <% end %>
+        </select>
+        <button
+          type="submit"
+          class="
+            bg-slate-700 hover:bg-slate-600 text-white text-xs font-semibold px-3 py-1
+            rounded transition cursor-pointer
+          "
+        >
+          Rate
+        </button>
+      <% end %>
+    <% end %>
+
+  </div>
+<% end %>

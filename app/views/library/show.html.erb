@@ -46,9 +46,14 @@
               <%= manga.title %>
             </p>
             <p class="text-xs text-zinc-500 mt-0.5"><%= manga.author %></p>
-
           <% end %>
 
+          <div class="mt-4 mb-4">
+            <%= render "ratings/form",
+            manga: manga,
+            rating: user_signed_in? ? current_user.rating_for(@manga) : nil %>
+
+          </div>
           <%# Resume reading button %>
           <% progress = current_user.progress_for(manga) %>
           <% if progress %>
@@ -94,7 +99,7 @@
       mangas_path,
       class:
         "bg-red-600 hover:bg-red-500 text-white text-sm
-                                font-semibold px-4 py-2 rounded transition" %>
+                                                  font-semibold px-4 py-2 rounded transition" %>
     </div>
   <% end %>
 

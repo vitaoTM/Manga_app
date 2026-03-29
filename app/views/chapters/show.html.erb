@@ -35,6 +35,12 @@
       <%= @chapter.display_title %>
     </h1>
   </div>
+  <div class="mt-4 mb-4">
+    <%= render "ratings/form",
+    manga: @manga,
+    rating: user_signed_in? ? current_user.rating_for(@manga) : nil %>
+
+  </div>
 
   <%# Admin controls %>
   <% if current_user&.admin? %>
