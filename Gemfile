@@ -69,7 +69,7 @@ end
 
 gem "devise", "~> 5.0"
 
-gem "ruby-lsp", "~> 0.26.8"
+gem "ruby-lsp", "~> 0.26.9"
 group :development, :test do
   gem "rspec-rails", "~> 8.0"
   gem "factory_bot_rails", "~> 6.5"
