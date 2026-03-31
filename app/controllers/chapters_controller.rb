@@ -11,7 +11,7 @@ class ChaptersController < ApplicationController
   def create
     @chapter = @manga.chapters.build(chapter_params)
     if @chapter.save
-      attach_pages if params.dig(:page, :image).present?
+      attach_pages if params.dig(:page, :images).present?
       redirect_to manga_chapter_path(@manga, @chapter.number),
         notice: "Chapter added"
     else
@@ -24,7 +24,7 @@ class ChaptersController < ApplicationController
 
   def update
     if @chapter.update(chapter_params)
-      attach_pages if params.dig(:page, :image).present?
+      attach_pages if params.dig(:page, :images).present?
       redirect_to manga_chapter_path(@manga, @chapter.number),
         notice: "Chapter updated"
     else
@@ -62,7 +62,7 @@ class ChaptersController < ApplicationController
     next_number = (@chapter.pages.maximum(:number) || 0) + 1
 
     images.each_with_index do |image, i|
-      page = @chapter.pages.build(number: next_number + 1)
+      page = @chapter.pages.build(number: next_number + i)
       page.image.attach(image)
       page.save
     end

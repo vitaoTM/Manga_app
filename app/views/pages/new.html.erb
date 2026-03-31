@@ -37,13 +37,14 @@
       </p>
       <%= f.file_field :images,
                    multiple: true,
+                   direct_upload: true,
                    accept: "image/jpeg,image/png,image/webp",
                    name: "images[]",
                    class:
                      "block w-full text-sm text-slate-400
-                                                                          file:mr-4 file:py-2 file:px-4 file:rounded
-                                                                          file:border-0 file:bg-slate-700 file:text-slate-200
-                                                                          file:cursor-pointer hover:file:bg-slate-600" %>
+                                                                                file:mr-4 file:py-2 file:px-4 file:rounded
+                                                                                file:border-0 file:bg-slate-700 file:text-slate-200
+                                                                                file:cursor-pointer hover:file:bg-slate-600" %>
     </div>
 
     <%# Existing pages preview %>

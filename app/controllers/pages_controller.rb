@@ -14,7 +14,8 @@ class PagesController < ApplicationController
   end
 
   def create
-    images = Array(params[:images]).reject { |f| f.blank? || f.is_a?(String) }
+    # images = Array(params[:images]).reject { |f| f.blank? || f.is_a?(String) }
+    images = Array(params[:images]).reject(&:blank?)
 
     if images.empty?
       flash.now[:alert] = "Please select at least one image."
@@ -26,7 +27,7 @@ class PagesController < ApplicationController
     next_number = (@chapter.pages.maximum(:number) || 0) + 1
 
     ActiveRecord::Base.transaction do
-     images.each_with_index.map do |img, i|
+      images.each_with_index.map do |img, i|
         page = @chapter.pages.build(number: next_number + i)
         page.image.attach(img)
         page.save!
