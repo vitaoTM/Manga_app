@@ -9,7 +9,7 @@ class RatingsController < ApplicationController
 
     if @rating.save
       redirect_back fallback_location: @manga,
-                    notice: "Rated #{@rating.score}/10."
+        notice: "Rated #{@manga.title} #{@rating.score}/10."
     else
       redirect_back fallback_location: @manga,
                     alert: @rating.errors.full_messages.join(", ")

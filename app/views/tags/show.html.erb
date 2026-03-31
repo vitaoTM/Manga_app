@@ -1,9 +1,9 @@
 <div class="max-w-6xl mx-auto px-6 py-10">
   <div class="mb-8">
-    <%= link_to "← All Tags", tags_path, class: "text-sm text-zinc-400 hover:text-white" %>
+    <%= link_to "← All Tags", tags_path, class: "text-sm text-slate-400 hover:text-white" %>
     <h1 class="text-3xl font-bold mt-4">
       #<%= @tag.name %>
-      <span class="text-zinc-500 font-normal text-xl ml-2">
+      <span class="text-slate-500 font-normal text-xl ml-2">
         <%= @mangas.count %>
         <%= "manga".pluralize(@mangas.count) %>
       </span>
@@ -16,8 +16,8 @@
         <%= link_to manga_path(manga), class: "block group" do %>
           <div
             class="
-              aspect-[2/3] bg-zinc-800 rounded mb-2 border border-zinc-700
-              group-hover:border-zinc-500 overflow-hidden transition-colors
+              aspect-[2/3] bg-slate-800 rounded mb-2 border border-slate-700
+              group-hover:border-slate-500 overflow-hidden transition-colors
             "
           >
             <% if manga.cover_image.attached? %>
@@ -27,7 +27,7 @@
             <% else %>
               <div
                 class="
-                  w-full h-full flex items-center justify-center text-zinc-600 text-4xl
+                  w-full h-full flex items-center justify-center text-slate-600 text-4xl
                 "
               >📖</div>
             <% end %>
@@ -35,12 +35,12 @@
           <p class="text-sm font-semibold line-clamp-2 group-hover:text-white transition">
             <%= manga.title %>
           </p>
-          <p class="text-xs text-zinc-500 mt-0.5"><%= manga.author %></p>
+          <p class="text-xs text-slate-500 mt-0.5"><%= manga.author %></p>
         <% end %>
       <% end %>
     </div>
   <% else %>
-    <p class="text-zinc-500 text-center py-16">
+    <p class="text-slate-500 text-center py-16">
       No manga with this tag yet.
     </p>
   <% end %>

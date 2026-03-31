@@ -17,7 +17,7 @@
       data-controller="navigation"
       data-navigation-base-url-value="<%= manga_path(@manga) %>"
     >
-      <label class="text-[10px] text-zinc-500 uppercase font-bold">Jump to:</label>
+      <label class="text-[10px] text-slate-500 uppercase font-bold">Jump to:</label>
       <%= select_tag :chapter_navigation,
       options_from_collection_for_select(
         @manga.chapters.published.ordered,
