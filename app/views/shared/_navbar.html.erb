@@ -51,11 +51,16 @@
               Hello,
               <%= link_to current_user.username, edit_user_registration_path %>
             </span>
+            <%= link_to "♥ Donate",
+            new_donation_path,
+            class: "text-sm text-red-400 hover:text-red-300 font-semibold px-3" %>
+
             <%= button_to "Sign out",
             destroy_user_session_path,
             method: :delete,
             class:
               "text-gray-300 hover:text-white text-sm font-medium bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded-md transition-all" %>
+
           <% else %>
             <div class="space-x-4">
               <%= link_to "Log in",

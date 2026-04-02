@@ -27,4 +27,54 @@
       </div>
     </div>
   <% end %>
+
+  <%# app/views/admin/index.html.erb %>
+  <div class="bg-slate-800 rounded p-6 border border-slate-700 mt-6">
+    <h2 class="text-lg font-bold mb-4">Donations</h2>
+
+    <div class="flex gap-8 mb-6">
+      <div>
+        <p class="text-slate-400 text-sm mb-1">Total raised</p>
+        <p class="text-3xl font-bold text-green-400">
+          R$
+          <%= format("%.2f", @donation_total / 100.0) %>
+        </p>
+      </div>
+      <div>
+        <p class="text-slate-400 text-sm mb-1">Donations</p>
+        <p class="text-3xl font-bold"><%= @donation_count %></p>
+      </div>
+    </div>
+
+    <% if @recent_donations.any? %>
+      <div class="space-y-2">
+        <% @recent_donations.each do |donation| %>
+          <div
+            class="
+              flex items-center justify-between text-sm px-3 py-2 bg-slate-900 rounded border
+              border-slate-800
+            "
+          >
+            <span class="text-slate-300">
+              <%= donation.user&.username || "Guest" %>
+            </span>
+            <% if donation.message.present? %>
+              <span class="text-slate-500 text-xs italic truncate max-w-[200px]">
+                "<%= donation.message %>"
+              </span>
+            <% end %>
+            <span class="text-green-400 font-semibold">
+              <%= donation.amount_display %>
+            </span>
+            <span class="text-slate-500 text-xs">
+              <%= donation.created_at.strftime("%b %d, %Y") %>
+            </span>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <p class="text-slate-500 text-sm">No donations yet.</p>
+    <% end %>
+  </div>
+
 </div>

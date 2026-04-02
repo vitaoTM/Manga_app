@@ -13,6 +13,7 @@ class User < ApplicationRecord
   has_many :bookmarked_mangas, through: :bookmarks, source: :manga
   has_many :ratings, dependent: :destroy
   has_many :reading_progresses, dependent: :destroy
+  has_many :donations, dependent: :destroy
 
   def progress_for(manga)
     reading_progresses.find_by(manga: manga)

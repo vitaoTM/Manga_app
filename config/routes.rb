@@ -24,4 +24,13 @@ Rails.application.routes.draw do
   get "library", to: "library#show", as: :library
 
   get "admin", to: "admin#index", as: :admin_dashboard
+
+  resources :donations, only: [ :new, :create ] do
+    collection do
+      get :success
+      get :cancel
+    end
+  end
+
+  post "webhooks/stripe", to: "webhooks/stripe#create"
 end

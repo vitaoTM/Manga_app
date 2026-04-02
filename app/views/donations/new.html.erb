@@ -1,0 +1,104 @@
+<div class="max-w-lg mx-auto px-6 py-12">
+  <h1 class="text-3xl font-bold mb-2">Support the Site</h1>
+  <p class="text-slate-400 mb-8">
+    All donations go towards server costs and new content.
+  </p>
+
+  <%= form_with url: donations_path, method: :post,
+      data: { turbo: false },
+      class: "space-y-6" do %>
+
+    <div>
+      <label class="block text-sm font-medium text-slate-300 mb-3">
+        Choose an amount
+      </label>
+      <div class="grid grid-cols-4 gap-3">
+        <% [[500, "R$5"], [1000, "R$10"], [2000, "R$20"], [5000, "R$50"]].each do |cents, label| %>
+          <label class="cursor-pointer">
+            <input
+              type="radio"
+              name="amount_cents"
+              value="<%= cents %>"
+              class="sr-only peer"
+              <%= "checked" if cents == 1000 %>
+            >
+            <div
+              class="
+                text-center px-3 py-3 bg-slate-800 border border-slate-700 rounded font-semibold
+                text-sm peer-checked:border-red-500 peer-checked:bg-red-900/20
+                peer-checked:text-red-400 hover:border-slate-500 transition cursor-pointer
+              "
+            >
+              <%= label %>
+            </div>
+          </label>
+        <% end %>
+      </div>
+    </div>
+
+    <%# Custom amount %>
+    <div>
+      <label class="block text-sm font-medium text-slate-300 mb-1">
+        Or enter a custom amount (R$)
+      </label>
+      <div class="flex items-center gap-2">
+        <span class="text-slate-400 text-sm">R$</span>
+        <input
+          type="number"
+          name="custom_amount"
+          min="1"
+          step="0.01"
+          placeholder="0.00"
+          class="
+            w-32 bg-slate-800 border border-slate-700 rounded px-3 py-2 text-slate-100
+            text-sm outline-none focus:border-slate-500
+          "
+          id="custom-amount-input"
+        >
+      </div>
+      <p class="text-xs text-slate-500 mt-1">Minimum R$1.00</p>
+    </div>
+
+    <%# Optional message %>
+    <div>
+      <label class="block text-sm font-medium text-slate-300 mb-1">
+        Leave a message (optional)
+      </label>
+      <textarea
+        name="message"
+        rows="2"
+        placeholder="Keep up the great work!"
+        class="
+          w-full bg-slate-800 border border-slate-700 rounded px-3 py-2 text-slate-100
+          text-sm resize-none outline-none focus:border-slate-500
+        "
+      ></textarea>
+    </div>
+
+    <button
+      type="submit"
+      class="
+        w-full bg-red-600 hover:bg-red-500 text-white font-semibold py-3 rounded
+        transition cursor-pointer
+      "
+    >
+      Donate with Stripe →
+    </button>
+
+    <p class="text-xs text-slate-500 text-center">
+      Payments are processed securely by Stripe. Your card details never touch
+      our servers.
+    </p>
+  <% end %>
+</div>
+
+<script>
+  // Custom amount overrides radio selection
+  document.getElementById('custom-amount-input').addEventListener('input', function() {
+    const cents = Math.round(parseFloat(this.value) * 100);
+    document.querySelectorAll('input[name="amount_cents"]').forEach(r => r.checked = false);
+    this.form.querySelector('input[name="amount_cents"]') ||
+      this.insertAdjacentHTML('afterend',
+        `<input type="hidden" name="amount_cents" value="${cents}">`);
+  });
+</script>
