@@ -39,10 +39,14 @@ module Webhooks
     end
 
     def handle_payment_failed(payment_intent)
-      donation = Donation.find_by(stripe_payment_intent_id: payment_intent.id)
+      donation_id = payment_intent.metadata.donation_id
+      donation = Donation.find_by(id: donation_id)
       return unless donation
 
-      donation.update!(status: "failed")
+      donation.update!(
+        status: "failed",
+        stripe_payment_intent_id: payment_intent.id
+      )
     end
   end
 end

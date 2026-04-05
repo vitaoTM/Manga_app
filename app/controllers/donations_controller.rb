@@ -36,6 +36,11 @@ class DonationsController < ApplicationController
       mode:        "payment",
       success_url: success_donations_url(session_id: "{CHECKOUT_SESSION_ID}"),
       cancel_url:  cancel_donations_url,
+      payment_intent_data: {
+        metadata: {
+          donation_id: donation.id
+        }
+      },
       metadata: {
         donation_id: donation.id,
         user_id:     current_user.id
