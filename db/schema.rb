@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_18_213343) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_01_175002) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -64,6 +64,21 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_18_213343) do
     t.index ["manga_id", "number"], name: "index_chapters_on_manga_id_and_number", unique: true
     t.index ["manga_id"], name: "index_chapters_on_manga_id"
     t.index ["published_at"], name: "index_chapters_on_published_at"
+  end
+
+  create_table "donations", force: :cascade do |t|
+    t.integer "amount_cents", null: false
+    t.datetime "created_at", null: false
+    t.string "currency", default: "brl", null: false
+    t.text "message"
+    t.string "status", default: "pending", null: false
+    t.string "stripe_payment_intent_id"
+    t.string "stripe_session_id"
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["status"], name: "index_donations_on_status"
+    t.index ["stripe_session_id"], name: "index_donations_on_stripe_session_id", unique: true
+    t.index ["user_id"], name: "index_donations_on_user_id"
   end
 
   create_table "manga_tags", force: :cascade do |t|
@@ -157,6 +172,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_18_213343) do
   add_foreign_key "bookmarks", "mangas"
   add_foreign_key "bookmarks", "users"
   add_foreign_key "chapters", "mangas"
+  add_foreign_key "donations", "users"
   add_foreign_key "manga_tags", "mangas"
   add_foreign_key "manga_tags", "tags"
   add_foreign_key "pages", "chapters", on_delete: :cascade

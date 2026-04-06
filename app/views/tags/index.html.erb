@@ -1,44 +1,46 @@
-<div class="flex items-center justify-between mb-6 mt-10 px-6">
-  <h1 class="text-2xl font-bold">Tags</h1>
-  <% if current_user&.admin? %>
-    <%= link_to "New Tag",
-    new_tag_path,
-    class:
-      "bg-red-600 hover:bg-red-500 text-white text-sm font-semibold px-4 py-2 rounded transition" %>
-  <% end %>
-</div>
+<div class="max-w-6xl mx-auto px-6 py-10">
+  <div class="flex items-center justify-between mb-6 mt-10 px-6">
+    <h1 class="text-2xl font-bold py-5">Tags</h1>
+    <% if current_user&.admin? %>
+      <%= link_to "New Tag",
+      new_tag_path,
+      class:
+        "bg-red-600 hover:bg-red-500 text-white text-sm font-semibold px-4 py-2 rounded transition" %>
+    <% end %>
+  </div>
 
-<div class='space-y-2 px-6'>
-  <% @tags.each do |tag| %>
-    <div
-      class="
-        flex items-center justify-between bg-slate-800 rounded px-4 py-3 border
-        border-slate-700
-      "
-    >
-      <span class="text-sm font-semibold">#
-        <%= link_to "#{tag.name}",
-        tag_path(tag),
-        class:
-          "text-2sm px-2.5 py-1 bg-slate-800 hover:bg-slate-700 border border-slate-700 hover:border-slate-500 rounded-full text-slate-400 hover:text-slate-200 transition" %></span>
-      <div class='flex gap-3 text-sm'>
-        <span class="text-xs text-slate-500"><%= tag.mangas.count %>
-          manga</span>
-        <% if current_user&.admin? %>
-          <div class="flex gap-3 text-sm">
-            <%= link_to "Edit", edit_tag_path(tag), class: "text-slate-400 hover:text-white" %>
-            <%= button_to "Delete",
-            tag_path(tag),
-            method: :delete,
-            data: {
-              turbo_confirm: "Delete ##{tag.name}?",
-            },
-            class:
-              "text-red-400 hover:text-red-300 bg-transparent
-                                                                                                                                                                                        border-0 cursor-pointer text-sm" %>
-          </div>
-        <% end %>
+  <div class='space-y-2 px-6'>
+    <% @tags.each do |tag| %>
+      <div
+        class="
+          flex items-center justify-between bg-slate-800 rounded px-4 py-3 border
+          border-slate-700
+        "
+      >
+        <span class="text-sm font-semibold">#
+          <%= link_to "#{tag.name}",
+          tag_path(tag),
+          class:
+            "text-2sm px-2.5 py-1 bg-slate-800 hover:bg-slate-700 border border-slate-700 hover:border-slate-500 rounded-full text-slate-400 hover:text-slate-200 transition" %></span>
+        <div class='flex gap-3 text-sm'>
+          <span class="text-xs text-slate-500"><%= tag.mangas.count %>
+            manga</span>
+          <% if current_user&.admin? %>
+            <div class="flex gap-3 text-sm">
+              <%= link_to "Edit", edit_tag_path(tag), class: "text-slate-400 hover:text-white" %>
+              <%= button_to "Delete",
+              tag_path(tag),
+              method: :delete,
+              data: {
+                turbo_confirm: "Delete ##{tag.name}?",
+              },
+              class:
+                "text-red-400 hover:text-red-300 bg-transparent
+                                                                                                                                                                                                                                                                                                                    border-0 cursor-pointer text-sm" %>
+            </div>
+          <% end %>
+        </div>
       </div>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
 </div>

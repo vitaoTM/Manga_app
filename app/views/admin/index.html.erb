@@ -27,4 +27,61 @@
       </div>
     </div>
   <% end %>
+
+  <%# app/views/admin/index.html.erb %>
+  <div class="bg-slate-900/40 rounded-xl p-8 border border-slate-800/60 mt-8 shadow-sm">
+    <h2 class="text-xl font-bold mb-8 text-slate-100">Donations</h2>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+      <div class="bg-slate-950/40 p-5 rounded-lg border border-slate-800/50">
+        <p class="text-slate-500 text-xs font-semibold uppercase tracking-wider mb-2">Total raised</p>
+        <p class="text-4xl font-black text-green-500">
+          <span class="text-2xl font-bold opacity-80 mr-1">R$</span><%= format("%.2f", @donation_total / 100.0) %>
+        </p>
+      </div>
+      <div class="bg-slate-950/40 p-5 rounded-lg border border-slate-800/50">
+        <p class="text-slate-500 text-xs font-semibold uppercase tracking-wider mb-2">Total Donations</p>
+        <p class="text-4xl font-black text-slate-100"><%= @donation_count %></p>
+      </div>
+    </div>
+
+    <% if @recent_donations.any? %>
+      <div class="space-y-3">
+        <% @recent_donations.each do |donation| %>
+          <div class="grid grid-cols-12 items-center gap-4 px-5 py-3.5 bg-slate-950/30 rounded-lg border border-slate-800/40 hover:bg-slate-900/40 transition-colors">
+            <div class="col-span-2">
+              <span class="text-slate-200 font-medium">
+                <%= donation.user&.username || "Guest" %>
+              </span>
+            </div>
+            
+            <div class="col-span-6">
+              <% if donation.message.present? %>
+                <span class="text-slate-500 text-sm italic truncate block pr-4" title="<%= donation.message %>">
+                  "<%= donation.message %>"
+                </span>
+              <% end %>
+            </div>
+
+            <div class="col-span-2 text-right">
+              <span class="text-green-500 font-bold tabular-nums">
+                <%= donation.amount_display %>
+              </span>
+            </div>
+
+            <div class="col-span-2 text-right">
+              <span class="text-slate-600 text-xs font-medium">
+                <%= donation.created_at.strftime("%b %d, %Y") %>
+              </span>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="text-center py-12 bg-slate-950/20 rounded-lg border border-dashed border-slate-800">
+        <p class="text-slate-500 text-sm italic">No donations yet.</p>
+      </div>
+    <% end %>
+  </div>
+
 </div>

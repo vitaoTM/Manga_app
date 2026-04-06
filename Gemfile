@@ -50,7 +50,6 @@ group :development, :test do
   gem "bundler-audit", require: false
 
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
-  gem "brakeman", require: false
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
@@ -58,6 +57,7 @@ end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
+  gem "brakeman", require: false
   gem "web-console"
 end
 
@@ -75,4 +75,9 @@ group :development, :test do
   gem "factory_bot_rails", "~> 6.5"
   gem "faker", "~> 3.6"
   gem "shoulda-matchers", "~> 7.0"
+  gem "dotenv-rails", "~> 3.2"
 end
+
+gem "stripe", "~> 19.0"
+
+gem "aws-sdk-s3", "~> 1.218"
