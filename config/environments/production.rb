@@ -22,8 +22,14 @@ Rails.application.configure do
   # config.asset_host = "http://assets.example.com"
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
-  config.active_storage.service = :local
+  config.active_storage.service = :amazon
 
+  config.action_mailer.default_url_options = {
+    host: ENV["APP_HOST"],
+    protocol: "https"
+  }
+
+  config.public_file_server.enabled = true
   # Assume all access to the app is happening through a SSL-terminating reverse proxy.
   # config.assume_ssl = true
 
