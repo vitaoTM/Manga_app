@@ -79,3 +79,5 @@ group :development, :test do
 end
 
 gem "stripe", "~> 19.0"
+
+gem "aws-sdk-s3", "~> 1.218"
