@@ -86,7 +86,8 @@ test:
 #
 production:
   <<: *default
-  url: <%= ENV["DATABASE_URL"] %># production:
+  url: <%= ENV["DATABASE_URL"] %>
+
 #   primary: &primary_production
 #     <<: *default
 #     database: manga_app_production
