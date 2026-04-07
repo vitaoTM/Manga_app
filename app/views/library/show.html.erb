@@ -8,11 +8,11 @@
   </div>
 
   <% if @bookmarks.any? %>
-    <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4 sm:gap-5">
+    <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-5">
       <% @bookmarks.each do |bookmark| %>
         <% manga = bookmark.manga %>
 
-        <div class="group relative">
+        <div class="group relative flex flex-col h-full">
           <%= link_to manga_path(manga), class: "block" do %>
 
             <%# Cover %>
@@ -38,43 +38,44 @@
             <p
               class="
                 text-sm font-semibold line-clamp-2 text-slate-200 group-hover:text-white
-                transition-colors
+                transition-colors min-h-[2.5rem]
               "
             >
               <%= manga.title %>
             </p>
-            <p class="text-xs text-slate-500 mt-0.5"><%= manga.author %></p>
+            <p class="text-xs text-slate-500 mt-0.5 truncate"><%= manga.author %></p>
           <% end %>
 
-          <div class="mt-4 mb-4">
-            <%= render "ratings/form",
-            manga: manga,
-            rating: user_signed_in? ? current_user.rating_for(@manga) : nil %>
-
-          </div>
-          <%# Resume reading button %>
-          <% progress = current_user.progress_for(manga) %>
-          <% if progress %>
-            <div class="mt-2">
-              <%= link_to manga_chapter_path(manga, progress.chapter.url_number),
-                    class: "block text-center text-xs bg-red-600 hover:bg-red-500
-                            text-white py-1 rounded transition" do %>
-                Resume Ch.
-                <%= progress.chapter.url_number %>
-              <% end %>
+          <div class="mt-auto pt-4">
+            <div class="mb-3">
+              <%= render "ratings/form",
+              manga: manga,
+              rating: user_signed_in? ? current_user.rating_for(manga) : nil %>
             </div>
-          <% else %>
-            <% first_chapter = manga.chapters.published.ordered.first %>
-            <% if first_chapter %>
+
+            <%# Resume reading button %>
+            <% progress = current_user.progress_for(manga) %>
+            <% if progress %>
               <div class="mt-2">
-                <%= link_to manga_chapter_path(manga, first_chapter.url_number),
-                      class: "block text-center text-xs bg-slate-700 hover:bg-slate-600
-                              text-slate-300 py-1 rounded transition" do %>
-                  Start Reading
+                <%= link_to manga_chapter_path(manga, progress.chapter.url_number),
+                      class: "block text-center text-[10px] sm:text-xs bg-red-600 hover:bg-red-500
+                              text-white py-1.5 px-1 rounded transition truncate shadow-sm" do %>
+                  Resume Ch. <%= progress.chapter.url_number %>
                 <% end %>
               </div>
+            <% else %>
+              <% first_chapter = manga.chapters.published.ordered.first %>
+              <% if first_chapter %>
+                <div class="mt-2">
+                  <%= link_to manga_chapter_path(manga, first_chapter.url_number),
+                        class: "block text-center text-[10px] sm:text-xs bg-slate-700 hover:bg-slate-600
+                                text-slate-300 py-1.5 px-1 rounded transition truncate shadow-sm" do %>
+                    Start Reading
+                  <% end %>
+                </div>
+              <% end %>
             <% end %>
-          <% end %>
+          </div>
 
           <%# Remove from library %>
           <%= button_to bookmark_manga_path(manga),

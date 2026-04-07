@@ -10,17 +10,17 @@
 </div>
 
 <% if user_signed_in? %>
-  <div class="flex items-center gap-2">
+  <div class="flex flex-wrap items-center gap-2">
 
     <% if rating %>
       <%= form_with url: rating_path(rating), method: :patch,
-            class: "flex items-center gap-2" do %>
+            class: "flex flex-wrap items-center gap-2 w-full" do %>
         <input type="hidden" name="rating[manga_id]" value="<%= manga.id %>">
         <select
           name="rating[score]"
           class="
             bg-slate-800 border border-slate-700 rounded px-2 py-1 text-slate-200 text-xs
-            outline-none [color-scheme:dark]
+            outline-none [color-scheme:dark] flex-grow min-w-[60px]
           "
         >
           <% (1..10).each do |n| %>
@@ -32,7 +32,7 @@
           type="submit"
           class="
             bg-slate-700 hover:bg-slate-600 text-white text-xs font-semibold px-3 py-1
-            rounded transition cursor-pointer
+            rounded transition cursor-pointer flex-grow sm:flex-grow-0
           "
         >
           Update
@@ -40,13 +40,13 @@
       <% end %>
     <% else %>
       <%= form_with url: ratings_path, method: :post,
-            class: "flex items-center gap-2" do %>
+            class: "flex flex-wrap items-center gap-2 w-full" do %>
         <input type="hidden" name="rating[manga_id]" value="<%= manga.id %>">
         <select
           name="rating[score]"
           class="
             bg-slate-800 border border-slate-700 rounded px-2 py-1 text-slate-200 text-xs
-            outline-none [color-scheme:dark]
+            outline-none [color-scheme:dark] flex-grow min-w-[60px]
           "
         >
           <option value="">Rate</option>
@@ -59,7 +59,7 @@
           type="submit"
           class="
             bg-slate-700 hover:bg-slate-600 text-white text-xs font-semibold px-3 py-1
-            rounded transition cursor-pointer
+            rounded transition cursor-pointer flex-grow sm:flex-grow-0
           "
         >
           Rate
