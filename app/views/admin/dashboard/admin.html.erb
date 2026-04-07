@@ -1,33 +1,35 @@
-<h1 class='text-3xl font-bold mb-8'>Dashboard</h1>
+<h1 class='text-3xl font-bold mb-8 px-4 sm:px-0'>Dashboard</h1>
 
-<div class='grid grid-cols-3 gap-6 mb-10'>
-  <div class='bg-slate-800 rounded p-6 border border-slate-700'>
-    <p class='text-slate-400 text-sm mb-1'>Manga</p>
-    <p class='text-4xl font-bold'><%= @manga_count %></p>
+<div class='grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mb-10 px-4 sm:px-0'>
+  <div class='bg-slate-800 rounded-xl p-6 border border-slate-700 shadow-sm'>
+    <p class='text-slate-400 text-sm font-semibold uppercase tracking-wider mb-1'>Manga</p>
+    <p class='text-4xl font-bold text-slate-100'><%= @manga_count %></p>
   </div>
-  <div class='bg-slate-800 rounded p-6 border border-slate-700'>
-    <p class='text-slate-400 text-sm mb-1'>Chapters</p>
-    <p class='text-4xl font-bold'><%= @chapter_count %></p>
+  <div class='bg-slate-800 rounded-xl p-6 border border-slate-700 shadow-sm'>
+    <p class='text-slate-400 text-sm font-semibold uppercase tracking-wider mb-1'>Chapters</p>
+    <p class='text-4xl font-bold text-slate-100'><%= @chapter_count %></p>
   </div>
-  <div class='bg-slate-800 rounded p-6 border border-slate-700'>
-    <p class='text-slate-400 text-sm mb-1'>Users</p>
-    <p class='text-4xl font-bold'><%= @user_count %></p>
+  <div class='bg-slate-800 rounded-xl p-6 border border-slate-700 shadow-sm'>
+    <p class='text-slate-400 text-sm font-semibold uppercase tracking-wider mb-1'>Users</p>
+    <p class='text-4xl font-bold text-slate-100'><%= @user_count %></p>
   </div>
 </div>
 
-<h2 class='text-xl font-semibold mb-4'>Recent Manga</h2>
-<div class='space-y-2'>
-  <% @recent_mangas.each do |manga| %>
-    <div
-      class='
-        flex items-center justify-between bg-slate-800 rounded px-4 py-3 border
-        border-slate-700
-      '
-    >
-      <span><%= manga.title %></span>
-      <%= link_to "Edit",
-      edit_admin_manga_path(manga),
-      class: "text-xs text-red-400 hover:text-red-300" %>
-    </div>
-  <% end %>
+<div class="px-4 sm:px-0">
+  <h2 class='text-xl font-semibold mb-4 text-slate-200'>Recent Manga</h2>
+  <div class='space-y-2'>
+    <% @recent_mangas.each do |manga| %>
+      <div
+        class='
+          flex items-center justify-between bg-slate-800/50 hover:bg-slate-800 transition-colors rounded-lg px-4 py-3 border
+          border-slate-700/50
+        '
+      >
+        <span class="text-slate-200 font-medium truncate pr-4"><%= manga.title %></span>
+        <%= link_to "Edit",
+        edit_admin_manga_path(manga),
+        class: "text-xs font-bold uppercase tracking-wider text-red-400 hover:text-red-300 shrink-0" %>
+      </div>
+    <% end %>
+  </div>
 </div>

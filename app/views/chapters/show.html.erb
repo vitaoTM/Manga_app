@@ -6,18 +6,26 @@
   <%# Header %>
   <div
     class="
-      flex items-center justify-between mb-6 pb-4 border-b border-slate-800
+      flex flex-col sm:flex-row items-center justify-between mb-6 pb-4 border-b
+      border-slate-800 gap-4
     "
   >
-    <%= link_to @manga.title.upcase,
-    manga_path(@manga),
-    class: "text-sm text-slate-400 hover:text-white truncate" %>
+    <div class="flex items-center justify-between w-full sm:w-auto gap-4">
+      <%= link_to @manga.title.upcase,
+      manga_path(@manga),
+      class: "text-sm text-slate-400 hover:text-white  max-w-[150px] " %>
+
+      <h1 class="text-lg font-bold overflow-hidden text-clip">
+        <%= @chapter.display_title %>
+      </h1>
+    </div>
+
     <div
-      class="flex items-center gap-2"
+      class="flex items-center gap-2 w-full sm:w-auto justify-end"
       data-controller="navigation"
       data-navigation-base-url-value="<%= manga_path(@manga) %>"
     >
-      <label class="text-[10px] text-slate-500 uppercase font-bold">Jump to:</label>
+      <label class="text-[10px] text-slate-500 uppercase font-bold whitespace-nowrap">Jump to:</label>
       <%= select_tag :chapter_navigation,
       options_from_collection_for_select(
         @manga.chapters.published.ordered,
@@ -26,14 +34,11 @@
         @chapter.url_number.to_s,
       ),
       class:
-        "bg-slate-800 border-slate-700 text-slate-200 text-xs rounded px-2 py-1 focus:ring-1 focus:ring-red-500 outline-none cursor-pointer",
+        "bg-slate-800 border-slate-700 text-slate-200 text-xs rounded px-2 py-1 focus:ring-1 focus:ring-red-500 outline-none cursor-pointer w-full sm:w-auto",
       data: {
         action: "change->navigation#jump",
       } %>
     </div>
-    <h1 class="text-lg font-bold ml-4 shrink-0">
-      <%= @chapter.display_title %>
-    </h1>
   </div>
   <div class="mt-4 mb-4">
     <%= render "ratings/form",
@@ -78,12 +83,17 @@
   <% end %>
 
   <%# Chapter navigation %>
-  <div class="flex justify-between mt-10 pt-6 border-t border-slate-800 text-sm">
+  <div
+    class="
+      flex flex-col-reverse sm:flex-row justify-between mt-10 pt-6 border-t
+      border-slate-800 text-sm gap-4
+    "
+  >
     <% if @prev_chapter %>
       <%= link_to manga_chapter_path(@manga, @prev_chapter.number),
-            class: "text-slate-400 hover:text-white flex items-center gap-2" do %>
+            class: "text-slate-400 hover:text-white flex items-center justify-center sm:justify-start gap-2 bg-slate-900 sm:bg-transparent py-3 sm:py-0 rounded" do %>
         <span>←</span>
-        <span><%= @prev_chapter.display_title %></span>
+        <span class="truncate max-w-[200px]"><%= @prev_chapter.display_title %></span>
       <% end %>
     <% else %>
       <span></span>
@@ -91,12 +101,16 @@
 
     <% if @next_chapter %>
       <%= link_to manga_chapter_path(@manga, @next_chapter.number),
-            class: "text-slate-400 hover:text-white flex items-center gap-2 ml-auto" do %>
-        <span><%= @next_chapter.display_title %></span>
+            class: "text-slate-400 hover:text-white flex items-center justify-center sm:justify-end gap-2 bg-slate-900 sm:bg-transparent py-3 sm:py-0 rounded" do %>
+        <span class="truncate max-w-[200px]"><%= @next_chapter.display_title %></span>
         <span>→</span>
       <% end %>
     <% else %>
-      <span class="text-yellow-400 flex items-center gap-2 ml-auto">No furder chapters released yet</span>
+      <span
+        class="
+          text-yellow-400 flex items-center justify-center sm:justify-end gap-2
+        "
+      >No further chapters yet</span>
     <% end %>
   </div>
 
