@@ -1,5 +1,5 @@
-<div class="max-w-6xl mx-auto px-6 py-10">
-  <div class="mb-8 flex items-center justify-between">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 py-10">
+  <div class="mb-8 flex flex-col sm:flex-row items-center justify-between gap-2">
     <h1 class="text-3xl font-bold">My Library</h1>
     <span class="text-slate-500 text-sm">
       <%= @bookmarks.count %>
@@ -8,7 +8,7 @@
   </div>
 
   <% if @bookmarks.any? %>
-    <div class="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-5">
+    <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4 sm:gap-5">
       <% @bookmarks.each do |bookmark| %>
         <% manga = bookmark.manga %>
 
