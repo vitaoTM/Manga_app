@@ -25,9 +25,11 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="bg-slate-950 text-slate-100 min-h-screen">
+  <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col">
     <%= render partial: "/shared/navbar" %>
-    <%= yield %>
+    <main class="flex-grow">
+      <%= yield %>
+    </main>
     <%= render partial: "/shared/footer" %>
   </body>
 </html>
