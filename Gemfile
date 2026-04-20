@@ -73,7 +73,7 @@ gem "ruby-lsp", "~> 0.26.8"
 group :development, :test do
   gem "rspec-rails", "~> 8.0"
   gem "factory_bot_rails", "~> 6.5"
-  gem "faker", "~> 3.6"
+  gem "faker", "~> 3.8"
   gem "shoulda-matchers", "~> 7.0"
   gem "dotenv-rails", "~> 3.2"
 end
