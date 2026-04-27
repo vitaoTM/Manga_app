@@ -78,5 +78,5 @@ group :development, :test do
   gem "dotenv-rails", "~> 3.2"
 end
 
-gem "stripe", "~> 19.0"
+gem "stripe", "~> 19.1"
 gem "aws-sdk-s3"
