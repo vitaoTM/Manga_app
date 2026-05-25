@@ -1,8 +1,21 @@
 #!/bin/bash -e
 
-# If running the rails server then create or migrate existing database
-if [ "${@: -2:1}" == "./bin/rails" ] && [ "${@: -1:1}" == "server" ]; then
-  ./bin/rails db:prepare
+# Only restore in production and if DB doesn't already exist
+if [ "$RAILS_ENV" = "production" ]; then
+  mkdir -p /data/db
+  for db in production production_cache production_queue production_cable; do
+    if [ ! -f "/data/db/${db}.sqlite3" ]; then
+      echo "Restoring ${db} from Litestream..."
+      litestream restore -if-replica-exists "/data/db/${db}.sqlite3" || true
+    fi
+  done
 fi
 
-exec "${@}"
+bundle exec rails db:prepare
+
+# Start Litestream replication wrapping the app process
+if [ "$RAILS_ENV" = "production" ]; then
+  exec litestream replicate -exec "$*"
+else
+  exec "$@"
+fi

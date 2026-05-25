@@ -1,0 +1,40 @@
+dbs:
+    - path: /data/db/production.sqlite3
+      replicas:
+        - type: s3
+          bucket: ${LITESTREAM_REPLICA_BUCKET}
+          path: production/primary
+          access-key-id: ${LITESTREAM_REPLICA_KEY_ID}
+          secret-access-key: ${LITESTREAM_REPLICA_ACCESS_KEY}
+          endpoint: ${LITESTREAM_REPLICA_ENDPOINT}
+          force-path-style: true
+
+    - path: /data/db/production_cache.sqlite3
+      replicas:
+        - type: s3
+          bucket: ${LITESTREAM_REPLICA_BUCKET}
+          path: production/cache
+          access-key-id: ${LITESTREAM_REPLICA_KEY_ID}
+          secret-access-key: ${LITESTREAM_REPLICA_ACCESS_KEY}
+          endpoint: ${LITESTREAM_REPLICA_ENDPOINT}
+          force-path-style: true
+
+    - path: /data/db/production_queue.sqlite3
+      replicas:
+        - type: s3
+          bucket: ${LITESTREAM_REPLICA_BUCKET}
+          path: production/queue
+          access-key-id: ${LITESTREAM_REPLICA_KEY_ID}
+          secret-access-key: ${LITESTREAM_REPLICA_ACCESS_KEY}
+          endpoint: ${LITESTREAM_REPLICA_ENDPOINT}
+          force-path-style: true
+
+    - path: /data/db/production_cable.sqlite3
+      replicas:
+        - type: s3
+          bucket: ${LITESTREAM_REPLICA_BUCKET}
+          path: production/cable
+          access-key-id: ${LITESTREAM_REPLICA_KEY_ID}
+          secret-access-key: ${LITESTREAM_REPLICA_ACCESS_KEY}
+          endpoint: ${LITESTREAM_REPLICA_ENDPOINT}
+          force-path-style: true

@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: manga-app
+    runtime: docker
+    plan: starter
+    disk:
+      name: sqlite-data
+      mountPath: /data
+      sizeGB: 10
+    envVars:
+      - key: RAILS_MASTER_KEY
+        sync: false
+      - key: RAILS_ENV
+        value: production
+      - key: LITESTREAM_REPLICA_BUCKET
+        sync: false
+      - key: LITESTREAM_REPLICA_KEY_ID
+        sync: false
+      - key: LITESTREAM_REPLICA_ACCESS_KEY
+        sync: false
+      - key: LITESTREAM_REPLICA_ENDPOINT
+        sync: false
+      - key: APP_HOST
+        sync: false
