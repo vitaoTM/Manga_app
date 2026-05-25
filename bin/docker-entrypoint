@@ -6,7 +6,7 @@ if [ "$RAILS_ENV" = "production" ]; then
   for db in production production_cache production_queue production_cable; do
     if [ ! -f "/data/db/${db}.sqlite3" ]; then
       echo "Restoring ${db} from Litestream..."
-      litestream restore -if-replica-exists "/data/db/${db}.sqlite3" || true
+      litestream restore -config /rails/config/litestream.yml -if-replica-exists "/data/db/${db}.sqlite3" || true
     fi
   done
 fi
@@ -15,7 +15,7 @@ bundle exec rails db:prepare
 
 # Start Litestream replication wrapping the app process
 if [ "$RAILS_ENV" = "production" ]; then
-  exec litestream replicate -exec "$*"
+  exec litestream replicate -config /rails/config/litestream.yml -exec "$*"
 else
   exec "$@"
 fi
