@@ -47,6 +47,7 @@
           type="number"
           name="custom_amount"
           min="1"
+          autocomplete="off"
           step="0.01"
           placeholder="0.00"
           class="
@@ -92,7 +93,7 @@
   <% end %>
 </div>
 
-<script>
+<script nonce="<%= content_security_policy_nonce %>">
   // Custom amount overrides radio selection
   document.getElementById('custom-amount-input').addEventListener('input', function() {
     const cents = Math.round(parseFloat(this.value) * 100);
