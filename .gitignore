@@ -31,6 +31,7 @@ TODO.md
 !/tmp/storage/.keep
 
 /db/*.sqlite3
+/db/*.sqlite3-*
 /public/assets
 
 # Ignore key files for decrypting credentials and more.
