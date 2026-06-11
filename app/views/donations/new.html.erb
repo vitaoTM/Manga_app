@@ -12,13 +12,14 @@
       <label class="block text-sm font-medium text-slate-300 mb-3">
         Choose an amount
       </label>
+      <input type="hidden" id="amount-cents-hidden" name="amount_cents" value="1000">
       <div class="grid grid-cols-4 gap-3">
         <% [[500, "R$5"], [1000, "R$10"], [2000, "R$20"], [5000, "R$50"]].each do |cents, label| %>
           <label class="cursor-pointer">
             <input
               type="radio"
-              name="amount_cents"
-              value="<%= cents %>"
+              name="preset_amount"
+              data-preset-cents="<%= cents %>"
               class="sr-only peer"
               <%= "checked" if cents == 1000 %>
             >
@@ -94,12 +95,19 @@
 </div>
 
 <script nonce="<%= content_security_policy_nonce %>">
-  // Custom amount overrides radio selection
-  document.getElementById('custom-amount-input').addEventListener('input', function() {
-    const cents = Math.round(parseFloat(this.value) * 100);
-    document.querySelectorAll('input[name="amount_cents"]').forEach(r => r.checked = false);
-    this.form.querySelector('input[name="amount_cents"]') ||
-      this.insertAdjacentHTML('afterend',
-        `<input type="hidden" name="amount_cents" value="${cents}">`);
+  const hiddenCents = document.getElementById('amount-cents-hidden');
+  const customInput = document.getElementById('custom-amount-input');
+
+  document.querySelectorAll('[data-preset-cents]').forEach(radio => {
+    radio.addEventListener('change', function() {
+      hiddenCents.value = this.dataset.presetCents;
+      customInput.value = '';
+    });
+  });
+
+  customInput.addEventListener('input', function() {
+    const cents = Math.round(parseFloat(this.value) * 100) || 0;
+    hiddenCents.value = cents;
+    document.querySelectorAll('[data-preset-cents]').forEach(r => r.checked = false);
   });
 </script>
