@@ -21,7 +21,7 @@ A modern, high-performance Manga reading platform built with **Ruby on Rails 8.1
 
 - **Framework:** Ruby on Rails 8.1.2 (Omakase)
 - **Frontend:** Hotwire (Turbo & Stimulus), Tailwind CSS 4.0
-- **Database:** PostgreSQL
+- **Database:** sqlite
 - **Auth:** Devise
 - **Media:** AWS S3 + Active Storage
 - **Payments:** Stripe (Checkout + Connect)
