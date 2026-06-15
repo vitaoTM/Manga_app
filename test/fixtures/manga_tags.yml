@@ -9,3 +9,7 @@ bleach_action:
 naruto_romance:
   manga: naruto
   tag: romance
+
+berserk_dark:
+  manga: berserk
+  tag: dark

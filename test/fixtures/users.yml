@@ -1,17 +1,17 @@
 alice:
   email: alice@example.com
-  encrypted_password: <%= BCrypt::Password.create("password", cost: 4) %>
+  encrypted_password: <%= ::BCrypt::Password.create("password", cost: 4) %>
   username: alice
   admin: false
 
 bob:
   email: bob@example.com
-  encrypted_password: <%= BCrypt::Password.create("password", cost: 4) %>
+  encrypted_password: <%= ::BCrypt::Password.create("password", cost: 4) %>
   username: bob
   admin: false
 
 admin_user:
   email: admin@example.com
-  encrypted_password: <%= BCrypt::Password.create("password", cost: 4) %>
+  encrypted_password: <%= ::BCrypt::Password.create("password", cost: 4) %>
   username: admin_user
   admin: true
