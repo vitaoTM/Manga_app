@@ -1,11 +1,9 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+alice_naruto:
+  user: alice
+  manga: naruto
+  score: 9
 
-one:
-  user: one
-  manga: one
-  score: 1
-
-two:
-  user: two
-  manga: two
-  score: 1
+bob_bleach:
+  user: bob
+  manga: bleach
+  score: 7

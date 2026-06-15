@@ -1,19 +1,17 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+naruto:
+  title: Naruto
+  author: Masashi Kishimoto
+  description: A ninja story
+  status: 0
+  genre: 0
+  rating: 8.5
+  views_count: 1000
 
-one:
-  title: MyString
-  description: MyText
-  author: MyString
+bleach:
+  title: Bleach
+  author: Tite Kubo
+  description: Soul reapers
   status: 1
-  genre: 1
-  rating: 9.99
-  views_count: 1
-
-two:
-  title: MyString
-  description: MyText
-  author: MyString
-  status: 1
-  genre: 1
-  rating: 9.99
-  views_count: 1
+  genre: 0
+  rating: 7.5
+  views_count: 500

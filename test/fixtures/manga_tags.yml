@@ -1,9 +1,11 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+naruto_action:
+  manga: naruto
+  tag: action
 
-one:
-  manga: one
-  tag: one
+bleach_action:
+  manga: bleach
+  tag: action
 
-two:
-  manga: two
-  tag: two
+naruto_romance:
+  manga: naruto
+  tag: romance

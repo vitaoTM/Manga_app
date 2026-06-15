@@ -1,0 +1,11 @@
+alice_pending:
+  user: alice
+  amount_cents: 1000
+  currency: brl
+  status: pending
+
+bob_succeeded:
+  user: bob
+  amount_cents: 5000
+  currency: brl
+  status: succeeded

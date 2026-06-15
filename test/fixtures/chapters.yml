@@ -1,17 +1,23 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+naruto_ch1:
+  manga: naruto
+  number: 1.0
+  title: Enter Naruto
+  published_at: 2026-01-01 00:00:00
 
-one:
-  manga: one
-  number: 9.99
-  title: MyString
-  notes: MyText
-  views_count: 1
-  published_at: 2026-03-16 16:14:16
+naruto_ch2:
+  manga: naruto
+  number: 2.0
+  title: Konoha
+  published_at: 2026-01-08 00:00:00
 
-two:
-  manga: two
-  number: 9.99
-  title: MyString
-  notes: MyText
-  views_count: 1
-  published_at: 2026-03-16 16:14:16
+bleach_ch1:
+  manga: bleach
+  number: 1.0
+  title: Bleach
+  published_at: 2026-01-01 00:00:00
+
+bleach_future:
+  manga: bleach
+  number: 2.0
+  title: Coming Soon
+  published_at: 2099-01-01 00:00:00

@@ -1,9 +1,11 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  chapter: one
+naruto_ch1_p1:
+  chapter: naruto_ch1
   number: 1
 
-two:
-  chapter: two
+naruto_ch1_p2:
+  chapter: naruto_ch1
+  number: 2
+
+bleach_ch1_p1:
+  chapter: bleach_ch1
   number: 1
