@@ -13,7 +13,7 @@ A modern, high-performance Manga reading platform built with **Ruby on Rails 8.1
 - **💎 Personal Library:** Bookmark your favorite manga and resume reading exactly where you left off.
 - **⭐ Rating System:** Rate titles and see community averages.
 - **🏷️ Advanced Tagging:** Discover new content through a robust tag management system.
-- **💰 Stripe Donations:** Integrated Marketplace model allowing users to support creators directly.
+- **💰 Stripe Donations:** Integrated Marketplace model allowing users to support us directly.
 - **☁️ Cloud Storage:** High-speed image delivery via AWS S3 and Active Storage.
 - **⚡ Modern Architecture:** Uses Rails 8 "Solid" adapters (Cache, Queue, Cable) for a simplified, database-backed infrastructure.
 
