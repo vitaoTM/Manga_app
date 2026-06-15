@@ -1,7 +1,7 @@
 naruto:
   title: Naruto
   author: Masashi Kishimoto
-  description: A ninja story
+  description: A ninja who dreams of becoming Hokage
   status: 0
   genre: 0
   rating: 8.5
@@ -10,8 +10,17 @@ naruto:
 bleach:
   title: Bleach
   author: Tite Kubo
-  description: Soul reapers
+  description: A teenager who becomes a soul reaper
   status: 1
   genre: 0
   rating: 7.5
   views_count: 500
+
+berserk:
+  title: Berserk
+  author: Kentaro Miyura
+  description: A dark phantasy, where Guts has to face many challenges.
+  status: 2
+  genre: 2
+  rating: 10
+  views_count: 2000

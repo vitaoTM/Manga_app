@@ -5,3 +5,7 @@ alice_naruto:
 bob_bleach:
   user: bob
   manga: bleach
+
+bob_berserk:
+  user: bob
+  manga: berserk
