@@ -33,7 +33,7 @@ A modern, high-performance Manga reading platform built with **Ruby on Rails 8.1
 
 ### Prerequisites
 - Ruby 4.0.1
-- PostgreSQL
+- SQLite3
 - AWS S3 Bucket (for image uploads)
 - Stripe Account (for donations)
 
@@ -86,7 +86,7 @@ The app is optimized for deployment on **Render**.
 
 1. Connect your GitHub repo to Render.
 2. Set Environment Variables:
-   - `DATABASE_URL`: Your Postgres connection string.
+   - `DATABASE_URL`: Your SQLITE connection string.
    - `RAILS_MASTER_KEY`: The content of your `config/master.key`.
 3. Build Command: `bundle install && bundle exec rails assets:precompile && bundle exec rails db:migrate`
 4. Start Command: `bundle exec puma -C config/puma.rb`
