@@ -21,13 +21,13 @@ A modern, high-performance Manga reading platform built with **Ruby on Rails 8.1
 
 - **Framework:** Ruby on Rails 8.1.2 (Omakase)
 - **Frontend:** Hotwire (Turbo & Stimulus), Tailwind CSS 4.0
-- **Database:** sqlite
+- **Database:** SQLite (Production: replicated to Cloudflare R2 via Litestream)
 - **Auth:** Devise
 - **Media:** AWS S3 + Active Storage
 - **Payments:** Stripe (Checkout + Connect)
 - **Background Jobs:** Solid Queue / Async
 - **Caching:** Solid Cache
-- **Deployment:** Render (Production) / Kamal (Ready)
+- **Deployment:** Render (with persistent disk + Litestream for SQLite replication)
 
 ## 🚀 Getting Started
 
@@ -70,14 +70,17 @@ A modern, high-performance Manga reading platform built with **Ruby on Rails 8.1
 
 ## 🧪 Testing
 
-The project uses **RSpec** for behavior-driven development.
+The project uses **Minitest** (Rails default) with fixtures.
 
 ```bash
 # Run all tests
-bundle exec rspec
+bin/rails test
 
-# Run system tests only
-bundle exec rspec spec/system
+# Run a single model test
+bin/rails test test/models/manga_test.rb
+
+# Run full CI suite (rubocop + audits + tests + seed)
+bin/ci
 ```
 
 ## 🚢 Deployment
@@ -86,7 +89,6 @@ The app is optimized for deployment on **Render**.
 
 1. Connect your GitHub repo to Render.
 2. Set Environment Variables:
-   - `DATABASE_URL`: Your SQLITE connection string.
    - `RAILS_MASTER_KEY`: The content of your `config/master.key`.
 3. Build Command: `bundle install && bundle exec rails assets:precompile && bundle exec rails db:migrate`
 4. Start Command: `bundle exec puma -C config/puma.rb`
